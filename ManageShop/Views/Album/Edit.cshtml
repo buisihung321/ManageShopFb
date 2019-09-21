@@ -71,7 +71,7 @@
             Price: $@product.Price
         </p>
         <a href="#" class="btn btn-secondary">See Detail</a>
-        @Html.ActionLink("Remove", "Remove", "Product", new { uuid = product.PhotoUUID}, new { @class = "btn btn-danger delete-link" })
+        @Html.ActionLink("Remove product", "Remove", "Product", new { uuid = product.PhotoUUID}, new { @class = "btn btn-danger delete-link" })
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     </div>
     </div>
