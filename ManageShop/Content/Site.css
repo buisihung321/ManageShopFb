@@ -1,0 +1,156 @@
+﻿
+@import url('https://fonts.googleapis.com/css?family=Lato:400,900,900i&display=swap');
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: 'Lato',sans-serif;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*HEADER STYLE*/
+.header_container {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("./Image/backgroudn2.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.header_container h2{
+    color: wheat;
+    text-transform: uppercase;
+    font-size: 3rem;
+    margin-bottom: 100px;
+}
+/*END HEADER STYLE*/
+
+
+
+.container-fluid .album-container {
+    width: 90%;
+    margin: 2em auto;
+}
+
+#album-modal {
+    min-width: 680px;
+    max-width: 90%;
+}
+    #album-modal input,
+    #album-modal textarea {
+        border-radius: 0;
+    }
+    #album-modal #album-name-input {
+        border-bottom: 1px dashed;
+        font-weight: 700;
+        font-style: italic;
+    }
+    #album-modal #album-desc-input {
+        border-top: none;
+        font-size: small;
+    }
+#album-modal .modal-content {
+        background-color: #e1e1e1;
+    }
+#album-modal .modal-body {
+        padding: 0;
+    }    
+
+#album-modal .container {
+        max-width: 100%;
+        padding: 0;
+    }        
+#album-modal .container > .row{
+            margin: 0 0 0 0;
+        }
+#album-modal input:focus,
+    #album-modal textarea:focus {
+        box-shadow: none;
+    }            
+
+#product-container {
+    margin: 0;
+    background-color: #FFF;
+    padding: 1rem 0 5rem 0;
+}
+
+#product-container .card {
+    width: 15rem;
+    min-height: 180px;
+}
+
+#product-container .card .card-body{
+    padding: 0;
+}
+
+.btn-sm {
+    font-size: 0.775rem;
+}
+.card-footer {
+    padding: 0.75rem 0.25rem;
+}
+
+/*UPLOAD BUTTON*/
+.uploadcare--widget {
+    height: 100%;
+}
+.uploadcare--widget .uploadcare--widget__button {
+    width: 100%;
+    height:100%;
+}
+
+/*DEFAULT CARD STATE*/
+#product-container .card{
+    visibility: visible;
+}
+#product-container .card .upload-progress-bar {
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border: 1px dashed;
+    width: 100%;
+    height: 100%;
+}
+#product-container .card .upload-progress-bar .progress-wrapper{
+     display: block;
+     width: 100%;
+     padding: 0 1rem;       
+}
+
+/*CARD LOADDING STATE*/
+
+#product-container .card-loading {
+    visibility: hidden;
+}
+
+#product-container .card-loading .upload-progress-bar {
+        visibility: visible;
+    }    
+
+/*CUSTOMIZE UPLOADCARE BTN*/
+.uploadcare--widget__text,
+.uploadcare--progress {
+    display: none;
+}

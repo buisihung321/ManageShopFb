@@ -1,0 +1,89 @@
+﻿@model ManageShop.Models.ViewModel.AlbumDetailViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ string albumId = Model.AlbumId;}
+
+@section Scripts
+{
+    <script>UPLOADCARE_PUBLIC_KEY = '49d4a35ffe4282af4c23';</script>
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/Album/Edit.js")"></script>
+}
+
+<h2>Edit</h2>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="add-product-form" action="/Album/AddPhoto" method="POST" onsubmit="submitHandler(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="Name" id="name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" name="Price" id="price" class="form-control" />
+                    </div>
+                    <div class="container">
+                        <label>Image: </label>
+                        <div class="mb-4 mt-2">
+                            <input type="hidden" role="uploadcare-uploader" id="uploadedImage" />
+                        </div>
+                    </div>
+                    <input type="hidden" value="@albumId" name="AlbumId" />
+                    <button class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="d-flex flex-row flex-wrap">
+    @foreach (var product in Model.Products)
+    {
+    <div class="card mx-2 my-2 shadow" style="width: 18rem;">
+        @if (product.PhotoUUID.Length != 0)
+        {
+            <img src="https://ucarecdn.com/@product.PhotoUUID/-/preview/950x950/-/filter/sorlen/-34/"
+                 width="100%" height="180"
+                 alt="Alternate Text" />
+        }
+        else
+        {
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>
+
+        }
+    <div class="card-body">
+        <h5 class="card-title">@product.Name</h5>
+        <p class="card-text">
+            Price: $@product.Price
+        </p>
+        <a href="#" class="btn btn-secondary">See Detail</a>
+        @Html.ActionLink("Remove", "Remove", "Product", new { uuid = product.PhotoUUID}, new { @class = "btn btn-danger delete-link" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </div>
+    </div>
+    }
+    <div class="text-center  mx-2 my-2 ">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Add new🖼 for this Album
+        </button>
+    </div>
+</div>
+
+
+
+
