@@ -6,7 +6,7 @@ const albumWrapper = $("#album-modal #album-wrapper");
 
 
 saveAlbumBtn.click(sendAlbumAddRequest);
-
+//1. Funtion to send request for add new album
 function sendAlbumAddRequest() {
     //get info for Album obj
     let album = {};
@@ -16,8 +16,7 @@ function sendAlbumAddRequest() {
     album.AlbumId = albumWrapper.find(`input[name="AlbumId"]`).val();
     album.Description = albumWrapper.find(`textarea[name="Description"]`).val();
     console.log(album);
-    //get info for Product
-    let products = [];
+    
 
     let productsObj = $("#album-modal #product-container .product-card");
 
@@ -28,6 +27,8 @@ function sendAlbumAddRequest() {
         return;
     }
 
+    //get info for Product
+    let products = [];
 
     console.log(productsObj)
     productsObj.each((index, ele) => {
@@ -36,6 +37,7 @@ function sendAlbumAddRequest() {
         product.AlbumId = album.AlbumId;
         product.Name = $(ele).find(`input[name="Name"]`).val();
         product.Price = $(ele).find(`input[name="Price"]`).val();
+        product.Quantity = $(ele).find(`input[name="Quantity"]`).val();
         product.PhotoUUID = $(ele).attr('id');
 
         products.push(product);
@@ -67,8 +69,7 @@ function sendAlbumAddRequest() {
 }
 
 
-
-//add progress bar
+//2. add progress bar
 function installProgressBar(widget) {
     let currentObject;
     widget.onChange(function (widgetObject) {
@@ -77,7 +78,9 @@ function installProgressBar(widget) {
 
             //create the card hidden
             //show the progress bar
-            let productHtml = `<div  class="card m-2 product-card shadow card-loading ">
+            //PRODUCT FORM
+            
+            let productHtml = `<div  class="card m-2 shadow card-loading ">
                                     <div class="upload-progress-bar">
                                         <div class="progress-wrapper">
                                             <div class="progress">
@@ -93,22 +96,18 @@ function installProgressBar(widget) {
                                     <div class="card-body">
                                             <input type="text" name="Name" id="name" placeholder="Name" class="form-control form-control-sm" />
                                             <input type="number" name="Price" id="price" placeholder="Price"  class="form-control form-control-sm" />
+                                            <input type="number" name="Quantity" id="quantity" placeholder="Quantity"  class="form-control form-control-sm" />
                                     </div>
                                     <div class="card-footer text-muted">
                                         <button class="btn btn-danger btn-sm product-remove__btn">Remove</button>
                                         <button id="set-album-cover__btn" class="btn btn-primary btn-sm">Set as album photo</button>
                                     </div>
                                 </div>`;
-
             //add this card to DOM
-
             let product = $($.parseHTML(productHtml));
-
             product.insertBefore(uploadBtn)
 
             let progress = product.find('.upload-progress-bar .progress-bar');
-            console.log(progress);
-
             //change progress-bar value
             widgetObject
                 .promise()
@@ -128,8 +127,6 @@ function installProgressBar(widget) {
                         src: previewUrl,
                         alt: info.name
                     });
-                    
-
                     //remove the progress bar
                     product.removeClass('card-loading')
                     //add id to the product
@@ -161,25 +158,10 @@ function installProgressBar(widget) {
                     }
                 })
         }
-        //else {
-        //    alert("Loi khi upload file")
-        //}
-    })
-
-}
-
-$(function () {
-    installProgressBar(uploadcare.Widget('[role=uploadcare-uploader]'));
-})
-
-function addSetAlbumCoverBtn(btn, photoUuid) {
-    btn.click(function () {
-        albumWrapper.find(`input[name="PhotoCover"]`).val(photoUuid);
     })
 }
 
-
-//function to add click event to product
+//3. function to add click event to product
 function addRemoveEventToBtn(btn, productUuid) {
     //let removeBtn = $(btn); //constructor jquery
 
@@ -195,6 +177,15 @@ function addRemoveEventToBtn(btn, productUuid) {
 }
 
 
+$(function () {
+    installProgressBar(uploadcare.Widget('[role=uploadcare-uploader]'));
+})
+
+function addSetAlbumCoverBtn(btn, photoUuid) {
+    btn.click(function () {
+        albumWrapper.find(`input[name="PhotoCover"]`).val(photoUuid);
+    })
+}
 
 //confirm delete
 var deleteLink = $("a.delete-link");
