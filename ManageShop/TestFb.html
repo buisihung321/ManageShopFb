@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="../Scripts/jquery-3.3.1.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    
+    
+    <title>Test FB</title>
+    
+</head>
+<body>
+    <!--FB SDK INITIALIZATION-->
+    <script>
+        var access_token;
+        var pId = '1659222677486198';
+        let pToken = "EAAEk1ybcCooBAEuUfW2G3RRe1XlrU50Nu9GpXcMZCck3Fgs1ZAeaU6BYZADY3km6LwSU8p8qksZBrqyWPC2xwmGtxeUQluOGOZAysTfjdNaHjTEGZAC2ZBUvxr1enJD66GQu8tZBi26GEkoOOWtnFCH4kf2U4BmBz4GLlZBmCPMNWP9KZAW0v25nIQG0hLJzw5gRBZBN4ByhI5JzAZDZD";
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '321981465234058',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v4.0'
+            });
+
+            //after init check login status
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        };
+
+        function statusChangeCallback(res) {
+            console.log("Status response: ");
+            console.log(res);
+
+            if (res.authResponse) {
+                $(".fb-status").html(`<p class="text-success">Connectted</p>`);
+                $(".login-fb").css("display", "none");
+                $(".logout-fb").css("display", "block");
+                access_token = res.authResponse.accessToken;
+            } else {
+                //show the fb login
+                $(".login-fb").css("display", "block");
+                $(".logout-fb").css("display", "none");
+            }
+
+        }
+
+        function logginFb() {
+
+
+            FB.login(function (response) {
+                if (response.status === 'connected') {
+                    statusChangeCallback(response);
+                } else {
+                    alert("Plese logiin to FB")
+                    location.reload();
+                }
+            }, {scope: 'email,user_likes,manage_pages,user_photos,user_posts,publish_to_groups,publish_pages'});
+        }
+
+        function getPageToken() {
+            let wrapper = $("#page-token .row");
+            let pageId = wrapper.find(`input[name="pageId"]`).val();
+
+            FB.api(pageId,
+                'GET',
+                {
+                    fields : `access_token`,
+                    access_token: access_token
+                },
+                res => console.log(res)
+            )
+        }
+
+        function logoutFb() {
+            FB.logout(function (response) {
+                // Person is now logged out
+                location.reload();
+            });
+        }
+
+        function getUserInfo() {
+            //Cach 1 qua FB SDK
+            //FB.api('/me',
+            //    'GET',
+            //    { fields: 'last_name, id ,name ' },
+            //    (res) => {
+            //        console.log("User info");
+            //        console.log(res);
+            //        renderUserInfo(res);
+            //    });
+
+            let token = "EAAEk1ybcCooBAHA11L9ByCYzSI9PrOhBHERW4IvSoMB7M1cNINbo1Y1Xn6DjLocti5CseCw8dTpzfNWnvXk6v8RktMFN5vzM5aUsgIAJ3f29bVKug8vK65ZC8k4tUls6ZAjCWcxN5bg1dz3s0slGlkVZCLC48HnBg9FnS79PljjcGaV6kuDeQHlIPcUJ1wZD";
+            //C2 Dung ajax goi api
+            $.ajax({
+                type: 'GET',
+                url: 'https://graph.facebook.com/v4.0/me',
+                data: {
+                    access_token: access_token,
+                    fields: `last_name,id , name`
+                },
+                success: function (res) {
+                    console.log(res);
+                    renderUserInfo(res);
+                }
+            })
+
+
+        }
+
+        function renderUserInfo(res) {
+            let table = `<table class="table table-bordered table-dark">
+                                <caption>User info</caption>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>${res.name}</td>
+                                </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <td>${res.id}</td>
+                                </tr>
+                                <tr>
+                                    <th>Access_Token</th>
+                                    <td><textarea class="form-control"  rows="4">${access_token}</textarea></td>
+                                </tr>
+                            </table>`
+            $(".info-wrapper").append(table);
+            //add post on fb form
+            let form = `<form action="https://graph.facebook.com/v4.0/${res.id}/photos" method="post" enctype="multipart/form-data">
+                            <label>Caption</label>
+                            <input type="text" value="" name="caption" class="form-control" />
+                            <label>Url</label>
+                            <input type="text" name="url" value="https://ucarecdn.com/ae1e3eec-5ef1-471e-8b43-b8e4c95861e4/-/preview/950x950/-/filter/sorlen/-34/" />
+                            <label>User Token</label>
+                            <input type="text" name="access_token" value="${access_token}" />
+                            <button type="submit">Send</button>
+                        </form>`;
+            $("#logged-wrapper").append(form);
+
+        }
+
+        function postFb() {
+            //Through Fb API
+            FB.api('1659222677486198/feed',
+                    'POST',
+                {
+                    "message": "Test by me",
+                    access_token: "EAAEk1ybcCooBAEuUfW2G3RRe1XlrU50Nu9GpXcMZCck3Fgs1ZAeaU6BYZADY3km6LwSU8p8qksZBrqyWPC2xwmGtxeUQluOGOZAysTfjdNaHjTEGZAC2ZBUvxr1enJD66GQu8tZBi26GEkoOOWtnFCH4kf2U4BmBz4GLlZBmCPMNWP9KZAW0v25nIQG0hLJzw5gRBZBN4ByhI5JzAZDZD"
+                },
+                    res => {
+                        console.log(res);
+                    }
+            )
+
+        }
+
+    </script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <h1 class="m-2">FB Api Testing</h1>
+    <div class="header d-flex ">
+        <div class="fb-status"></div>
+        <button class="mx-2 btn btn-primary login-fb" onclick="logginFb()">Login</button>
+        <button class="mx-2 btn btn-primary logout-fb" onclick="logoutFb()">Logout</button>
+    </div>
+
+
+    <!--Get user info-->
+
+
+
+    <div id="logged-wrapper" class=" my-2 container-fluid">
+        <div id="fb-info">
+            <button class="btn btn-primary" onclick="getUserInfo()">Get user info</button>
+
+            <div class="info-wrapper">
+
+            </div>
+        </div>
+        <div id="page-token">
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary" onclick="getPageToken()">Get Page token</button>
+                </div>
+                <div class="col">
+                    <input type="text" name="pageId" value="1659222677486198" />
+                </div>
+            </div>
+        </div>
+        <div id="post" class="my-4">
+            <table class="table table-bordered table-dark">
+                <tr>
+                    <th>Message</th>
+                    <td><input class="form-control" type="text" name="message" value="" /></td>
+                </tr>
+                <tr>
+                    <th>Access_token</th>
+                    <td><textarea class="form-control" name="access_token"></textarea></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="text-right">
+                        <button class="btn btn-primary" onclick="postFb()">Post a feed</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!--POST PHOTO-->
+        <form action="https://graph.facebook.com/v4.0/1659222677486198/photos" method="post" enctype="multipart/form-data">
+            <label>Caption</label>
+            <input type="text" value="" name="caption" class="form-control" />
+            <label>Url</label>
+            <input type="text" name="url" value="https://ucarecdn.com/ae1e3eec-5ef1-471e-8b43-b8e4c95861e4/-/preview/950x950/-/filter/sorlen/-34/" />
+            <!--<label>File</label>
+        <input type="file" value="" name="source" />-->
+            <label>Page Token</label>
+            <input type="text" value="EAAEk1ybcCooBAEuUfW2G3RRe1XlrU50Nu9GpXcMZCck3Fgs1ZAeaU6BYZADY3km6LwSU8p8qksZBrqyWPC2xwmGtxeUQluOGOZAysTfjdNaHjTEGZAC2ZBUvxr1enJD66GQu8tZBi26GEkoOOWtnFCH4kf2U4BmBz4GLlZBmCPMNWP9KZAW0v25nIQG0hLJzw5gRBZBN4ByhI5JzAZDZD"
+                   name="access_token" />
+            <button type="submit">Send</button>
+        </form>
+
+
+        
+
+    </div>
+</body>
+</html>
