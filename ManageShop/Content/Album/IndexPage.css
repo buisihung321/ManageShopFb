@@ -123,3 +123,17 @@
 .card-footer {
     padding: 0.75rem 0.25rem;
 }
+
+/*FOR INPUT TAG*/
+.amsify-suggestags-area .amsify-suggestags-list {
+    z-index: 100;
+    width: 100%;
+}
+
+/*.amsify-suggestags-input-area form-control{
+    font-size: 12px;
+}*/
+
+.amsify-suggestags-input {
+    width: 100%;
+}

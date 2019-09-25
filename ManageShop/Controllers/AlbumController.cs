@@ -28,18 +28,39 @@ namespace ManageShop.Controllers
         public ActionResult Index()
         {
 
-            var albums = _context.Albums.ToList();
+            var albums = _context.Albums.Include(a => a.Categories).ToList();
             //List all Album
             return View(albums);
         }
 
+        public ActionResult Filter(string categoryName)
+        {
+            if (!ModelState.IsValid)
+                return View("Index");
+
+            var albums = _context.Categories
+                .Include(c => c.Albums)
+                .SingleOrDefault(c => c.Name == categoryName).Albums;
+
+
+            return View("Index", albums);
+        }
+
+
         [HttpPost]
-        public ActionResult New(Album album,IEnumerable<Product> products)
+        public ActionResult New(Album album,IEnumerable<Product> products, IEnumerable<string> categories)
         {
             //save the album first
             //check if the alubm name was setted
             if (album.Name == "" || album.Name == null)
                 album.Name = "Album was not named";
+
+            //add catogories to album
+            foreach (var category in categories)
+            {
+                album.Categories.Add(new Category { Name = category });
+            }
+
             _context.Albums.Add(album);
             _context.SaveChanges();
 

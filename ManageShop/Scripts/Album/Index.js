@@ -4,36 +4,49 @@ const uploadBtn = $("#uploadBtn");
 const saveAlbumBtn = $("#album-modal .modal-footer button#save-album__btn");
 const albumWrapper = $("#album-modal #album-wrapper");
 
+//initialize input tag
+const categoryInput = $(`#album-wrapper input[name="TEST"]`);
+console.log(categoryInput)
+const amsifySuggestags = new AmsifySuggestags(categoryInput);
+console.log(amsifySuggestags)
+amsifySuggestags._settings({
+    type : 'bootstrap',
+    suggestions: ['Black', 'White', 'Red', 'Blue', 'Green', 'Orange'],
+    classes: ['bg-primary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info'],
+    afterAdd: function (value) {
+        amsifySuggestags.printValues();
+    }
+});
 
+amsifySuggestags._init();
 saveAlbumBtn.click(sendAlbumAddRequest);
-//1. Funtion to send request for add new album
-function sendAlbumAddRequest() {
-    //get info for Album obj
+
+
+function getInputForAddAlbum() {
     let album = {};
+    let categories = [];
+    let products = [];
 
 
     album.Name = albumWrapper.find(`input[name="Name"]`).val();
     album.AlbumId = albumWrapper.find(`input[name="AlbumId"]`).val();
     album.Description = albumWrapper.find(`textarea[name="Description"]`).val();
     console.log(album);
-    
+    //get categories
+    //split category by comma
+    categories = albumWrapper.find(`input[name="categories"]`).val().split(",");
 
-    let productsObj = $("#album-modal #product-container .product-card");
-
+    let productsObj = $("#album-modal #product-container .product");
     //validate at least 1 product
-
-    if (productsObj.length <= 0) {
-        alert('Please add at least one product')
-        return;
-    }
-
-    //get info for Product
-    let products = [];
-
     console.log(productsObj)
+    if (productsObj.length <= 0) {
+        return null;
+    }
+    
+    //get info for Product
+
     productsObj.each((index, ele) => {
         let product = {};
-
         product.AlbumId = album.AlbumId;
         product.Name = $(ele).find(`input[name="Name"]`).val();
         product.Price = $(ele).find(`input[name="Price"]`).val();
@@ -42,13 +55,29 @@ function sendAlbumAddRequest() {
 
         products.push(product);
     })
+    console.log(products)
 
 
     album.PhotoCover = albumWrapper.find(`input[name="PhotoCover"]`).val() == '' || null
         ? products[0].PhotoUUID : albumWrapper.find(`input[name="PhotoCover"]`).val();
 
 
-    let data = JSON.stringify({ "album": album, "products": products });
+    return { "album": album, "products": products, "categories": categories };
+}
+
+//1. Funtion to send request for add new album
+function sendAlbumAddRequest() {
+    //get info for Album obj
+    let data = getInputForAddAlbum();
+
+    //validate at least 1 product
+
+    if (data == null) {
+        alert('Please add at least one product')
+        return;
+    }
+
+    //data = JSON.stringify(data);
     console.log(data)
     //send ajax request
     $.ajax({
@@ -56,7 +85,7 @@ function sendAlbumAddRequest() {
         type: 'POST',
         content: "application/json; charset=utf-8",
         datatype: 'json',
-        data: {album,products},
+        data: data,
         success: function (res) {
             window.location.href = res.newUrl;
         },
@@ -65,7 +94,13 @@ function sendAlbumAddRequest() {
         }
     });
 
-    console.log(products)
+}
+
+function loadCategory(uuid) {
+    $.ajax({
+        type: 'GET',
+
+    })
 }
 
 
@@ -80,7 +115,7 @@ function installProgressBar(widget) {
             //show the progress bar
             //PRODUCT FORM
             
-            let productHtml = `<div  class="card m-2 shadow card-loading ">
+            let productHtml = `<div  class="card m-2 shadow card-loading product ">
                                     <div class="upload-progress-bar">
                                         <div class="progress-wrapper">
                                             <div class="progress">
@@ -137,6 +172,10 @@ function installProgressBar(widget) {
                     addRemoveEventToBtn(product.find("button.product-remove__btn"), info.uuid)
                     //add photo cover button for album
                     addSetAlbumCoverBtn(product.find("button#set-album-cover__btn"), info.uuid);
+                    //load the object label for category
+
+                    //loadCategory(info.uuid)
+
 
                 })
                 .fail(function (err) {
