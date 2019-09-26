@@ -47,12 +47,7 @@ namespace ManageShop.Controllers
         }
 
 
-        /Order
-            Album 1 
-                Prod 1 Prod2 
-
-            /Order 
-                Serch By Product Name
+        
 
         [HttpPost]
         public ActionResult New(Album album,IEnumerable<Product> products, IEnumerable<string> categories)
