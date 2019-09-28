@@ -5,20 +5,20 @@ const saveAlbumBtn = $("#album-modal .modal-footer button#save-album__btn");
 const albumWrapper = $("#album-modal #album-wrapper");
 
 //initialize input tag
-const categoryInput = $(`#album-wrapper input[name="TEST"]`);
-console.log(categoryInput)
-const amsifySuggestags = new AmsifySuggestags(categoryInput);
-console.log(amsifySuggestags)
-amsifySuggestags._settings({
-    type : 'bootstrap',
-    suggestions: ['Black', 'White', 'Red', 'Blue', 'Green', 'Orange'],
-    classes: ['bg-primary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info'],
-    afterAdd: function (value) {
-        amsifySuggestags.printValues();
-    }
-});
+//const categoryInput = $(`#album-wrapper input[name="TEST"]`);
+//console.log(categoryInput)
+//const amsifySuggestags = new AmsifySuggestags(categoryInput);
+//console.log(amsifySuggestags)
+//amsifySuggestags._settings({
+//    type : 'bootstrap',
+//    suggestions: ['Black', 'White', 'Red', 'Blue', 'Green', 'Orange'],
+//    classes: ['bg-primary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info'],
+//    afterAdd: function (value) {
+//        amsifySuggestags.printValues();
+//    }
+//});
 
-amsifySuggestags._init();
+//amsifySuggestags._init();
 saveAlbumBtn.click(sendAlbumAddRequest);
 
 

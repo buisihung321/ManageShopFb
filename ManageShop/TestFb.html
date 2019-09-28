@@ -5,10 +5,7 @@
     <script src="../Scripts/jquery-3.3.1.js"></script>
     <script src="../Scripts/bootstrap.js"></script>
     <link href="../Content/bootstrap.css" rel="stylesheet" />
-    
-    
     <title>Test FB</title>
-    
 </head>
 <body>
     <!--FB SDK INITIALIZATION-->
@@ -57,7 +54,7 @@
                     alert("Plese logiin to FB")
                     location.reload();
                 }
-            }, {scope: 'email,user_likes,manage_pages,user_photos,user_posts,publish_to_groups,publish_pages'});
+            });
         }
 
         function getPageToken() {
@@ -70,7 +67,11 @@
                     fields : `access_token`,
                     access_token: access_token
                 },
-                res => console.log(res)
+                res => {
+                    console.log("Page token")
+
+                    $("input.page_token").val(res.access_token);
+                }
             )
         }
 
@@ -92,7 +93,7 @@
             //        renderUserInfo(res);
             //    });
 
-            let token = "EAAEk1ybcCooBAHA11L9ByCYzSI9PrOhBHERW4IvSoMB7M1cNINbo1Y1Xn6DjLocti5CseCw8dTpzfNWnvXk6v8RktMFN5vzM5aUsgIAJ3f29bVKug8vK65ZC8k4tUls6ZAjCWcxN5bg1dz3s0slGlkVZCLC48HnBg9FnS79PljjcGaV6kuDeQHlIPcUJ1wZD";
+            let token = "EAAEk1ybcCooBAAZBbCAFGoMCZAOVPf1IAswplg1DUoIRmhCNRtoberCDS9aQFmlxpThx5XtEHmNE4UJt8612UbGElxWevHSmhIjrLynn9AlkxLV9VsyfZCqFxZBa1aCX2Y9kpyySSbrMMEBrGNjISEJmy4hF8caVVwn2uwpGZApSPX0S9PEodUtuJTA74rmEZD";
             //C2 Dung ajax goi api
             $.ajax({
                 type: 'GET',
@@ -156,6 +157,56 @@
 
         }
 
+
+        function uploadMultipleFileToAlbum() {
+
+
+            let input = $(`input[name="files"]`);
+            console.log(input.prop('files'));
+            let inputFiles = input.prop('files');
+            //return;
+            let batch = [];
+            let data = {};
+            let photoUrl = ["https://ucarecdn.com/7395c1ad-4bc0-4267-bb01-b3821a36a77f/WhiteSandsNewMexico1920x1080.jpg","https://ucarecdn.com/d1057f6e-27f6-4dbc-bf84-76dff8c11a17/AlorIslandsIndonesia1920x1080.jpg"];
+
+            const albumId = 2959732954101824;
+            //for (var i = 0; i < 2; i++) {
+            //    batch[i] = { "method": "POST", "relative_url": albumId +"/photos", "body": `message=My photo ${i}} `,"attached_files":`file${i}` }
+            //}
+            ////DATA OBJ
+            //data.batch = JSON.stringify(batch);
+            //for (var i = 0; i < 2; i++) {
+            //    data[`file${i}`] = "@"+photoUrl[i];
+            //}
+
+            for (var i = 0; i < inputFiles.length; i++) {
+                batch[i] = { "method": "POST", "relative_url": albumId + "/photos", "body": `message=My photo ${inputFiles[i].name}} `, "attached_files": `file${i + 1}` }
+            }
+            data.batch = JSON.stringify(batch);
+            for (var i = 0; i < 2; i++) {
+                data[`file${i + 1}`] = inputFiles[i];
+            }
+            data.access_token = "EAAEk1ybcCooBADXHZCyNnQnRbUdREacPPJU4eU9XZBCjMkqvYXDG9uowHUCronGiMQWnrdtQ3cWQ5OuXZAbna7WLvnlqkPv6n9QlREfpZBR5d7hChPETZBoaRQ1tnvsENjO9hyFGA0oXjlb68EiFHGQ9yllT7Lxz33u3ZCqxwUZBoOZAer0ZA19BBkyfE920EdaN9WCycNfXSbAZDZD";
+
+
+            console.log(data)
+
+            $.ajax({
+                type: 'POST',
+                url: 'https://graph.facebook.com/v4.0/',
+                contentType: 'multipart/form-data',
+                data: JSON.stringify(data),
+                success: function (res) {
+                    console.log("Upload multiple photo")
+                    console.log(res);
+                },
+                error: function (res) {
+                    alert('Error')
+                    console.log(res);
+                }
+            })
+        }
+
     </script>
     <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
     <h1 class="m-2">FB Api Testing</h1>
@@ -164,12 +215,7 @@
         <button class="mx-2 btn btn-primary login-fb" onclick="logginFb()">Login</button>
         <button class="mx-2 btn btn-primary logout-fb" onclick="logoutFb()">Logout</button>
     </div>
-
-
     <!--Get user info-->
-
-
-
     <div id="logged-wrapper" class=" my-2 container-fluid">
         <div id="fb-info">
             <button class="btn btn-primary" onclick="getUserInfo()">Get user info</button>
@@ -178,6 +224,7 @@
 
             </div>
         </div>
+        <hr />
         <div id="page-token">
             <div class="row">
                 <div class="col">
@@ -188,6 +235,7 @@
                 </div>
             </div>
         </div>
+        <hr />
         <div id="post" class="my-4">
             <table class="table table-bordered table-dark">
                 <tr>
@@ -206,23 +254,53 @@
                 </tr>
             </table>
         </div>
-
+        <hr />
         <!--POST PHOTO-->
         <form action="https://graph.facebook.com/v4.0/1659222677486198/photos" method="post" enctype="multipart/form-data">
             <label>Caption</label>
             <input type="text" value="" name="caption" class="form-control" />
             <label>Url</label>
             <input type="text" name="url" value="https://ucarecdn.com/ae1e3eec-5ef1-471e-8b43-b8e4c95861e4/-/preview/950x950/-/filter/sorlen/-34/" />
-            <!--<label>File</label>
-        <input type="file" value="" name="source" />-->
             <label>Page Token</label>
-            <input type="text" value="EAAEk1ybcCooBAEuUfW2G3RRe1XlrU50Nu9GpXcMZCck3Fgs1ZAeaU6BYZADY3km6LwSU8p8qksZBrqyWPC2xwmGtxeUQluOGOZAysTfjdNaHjTEGZAC2ZBUvxr1enJD66GQu8tZBi26GEkoOOWtnFCH4kf2U4BmBz4GLlZBmCPMNWP9KZAW0v25nIQG0hLJzw5gRBZBN4ByhI5JzAZDZD"
+            <input class="page_token" type="text" value=""
                    name="access_token" />
             <button type="submit">Send</button>
         </form>
+        <hr />
+        <!--POST ALBUM-->
+        <form action="https://graph.facebook.com/v4.0/1659222677486198/albums" method="post" enctype="multipart/form-data">
+            <label>Name</label>
+            <input type="text" value="" name="name" class="form-control" placeholder="Name of album" />
+            <br />
+            <label>Message</label>
+            <input type="text" value="" name="message" class="form-control" placeholder="Description of album" />
+            <br />
+            <!--<label>Share Album</label>
+        <input type="checkbox" name="make_shared_album" value="true" checked/>-->
 
+            <br />
+            <!--<label>Url</label>
+        <input type="text" name="url" value="https://ucarecdn.com/ae1e3eec-5ef1-471e-8b43-b8e4c95861e4/-/preview/950x950/-/filter/sorlen/-34/" />-->
 
+            <input type="file" name="source" value="" />
+
+            <input class="page_token" type="text" value=""
+                   name="access_token" />
+            <button type="submit">Send</button>
+        </form>
         
+        <h1 class="badge bg-primary">POST WITH EXISTED ALBUM</h1>
+
+        <form action="https://graph.facebook.com/v4.0/2959732954101824/photos" method="POST">
+            URL: <input type="text" name="url" value="" /> <br />
+            Message: <input type="text" name="message" value="" /> <br />
+            <input class="page_token" type="text" name="access_token" />
+            <button class="btn btn-primary" type="submit">Send</button>
+        </form>
+
+        <h1>Test upload multiple photo to existed album</h1>
+        <button class="btn btn-success" onclick="uploadMultipleFileToAlbum()">Upload multiple</button>
+        <input type="file" multiple name="files"/>
 
     </div>
 </body>

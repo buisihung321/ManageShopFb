@@ -47,8 +47,6 @@ namespace ManageShop.Controllers
         }
 
 
-        
-
         [HttpPost]
         public ActionResult New(Album album,IEnumerable<Product> products, IEnumerable<string> categories)
         {
