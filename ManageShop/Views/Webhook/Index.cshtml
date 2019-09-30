@@ -1,0 +1,17 @@
+﻿@model IEnumerable<ManageShop.Models.MessageWebhookLog>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<h1>List: </h1>
+<ul>
+
+    @foreach (var m in Model)
+    {
+        <li>@m.MessageText</li>
+    }
+</ul>

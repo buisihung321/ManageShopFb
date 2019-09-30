@@ -12,5 +12,8 @@ namespace ManageShop.DAL
         public DbSet<Album> Albums { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories{ get; set; }
+        public DbSet<MessageWebhookLog> MessageWebhookLogs{ get; set; }
+
+
     }
 }

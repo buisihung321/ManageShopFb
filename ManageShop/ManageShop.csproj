@@ -169,6 +169,7 @@
     <Compile Include="Controllers\api\WebHookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\WebhookController.cs" />
     <Compile Include="DAL\ManageShopContext.cs" />
     <Compile Include="DTO\AlbumDTO.cs" />
     <Compile Include="Global.asax.cs">
@@ -234,9 +235,18 @@
     <Compile Include="Migrations\201909250309451_Manytomanybetweenalbumandcategory.Designer.cs">
       <DependentUpon>201909250309451_Manytomanybetweenalbumandcategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.cs" />
+    <Compile Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.Designer.cs">
+      <DependentUpon>201909291020317_AddMessageModelForMessageWebhook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909291318061_ChangeTypeModelMessage.cs" />
+    <Compile Include="Migrations\201909291318061_ChangeTypeModelMessage.Designer.cs">
+      <DependentUpon>201909291318061_ChangeTypeModelMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\MessageWebhookLog.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ViewModel\AlbumDetailViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -335,6 +345,7 @@
     <Content Include="Views\Album\Edit.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Nav.cshtml" />
+    <Content Include="Views\Webhook\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -390,6 +401,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909250309451_Manytomanybetweenalbumandcategory.resx">
       <DependentUpon>201909250309451_Manytomanybetweenalbumandcategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.resx">
+      <DependentUpon>201909291020317_AddMessageModelForMessageWebhook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909291318061_ChangeTypeModelMessage.resx">
+      <DependentUpon>201909291318061_ChangeTypeModelMessage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
