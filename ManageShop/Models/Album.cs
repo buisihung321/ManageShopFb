@@ -21,6 +21,9 @@ namespace ManageShop.Models
         public bool HasPosted { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
+
+        public string FbLink { get; set; }    
+
         public DateTime CreatedTime { get; set; }
 
         public ICollection<Category> Categories{ get; set; }

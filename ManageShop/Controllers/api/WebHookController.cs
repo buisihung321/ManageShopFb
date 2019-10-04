@@ -30,9 +30,10 @@ namespace ManageShop.Controllers.api
             _context.Dispose();
         }
 
-        //FOR Fb Verifycation
+        //FOR Fb Verification
         public IHttpActionResult Get()
         {
+
             NameValueCollection s = HttpContext.Current.Request.QueryString;
             string mode = s.Get("hub.mode");
             if (mode.Equals("subscribe"))
@@ -68,12 +69,16 @@ namespace ManageShop.Controllers.api
                         if (messageEvent["message"] != null)
                         {
                             //handle message event
-                            if (!await handleMessageEvent(messageEvent))
+                            if (!await HandleMessageEvent(messageEvent))
                                 return InternalServerError();
                         }
                         else if (messageEvent["postback"] != null)
                         {
                             //handle pstback event
+                            if (!await HandlePostbackEvent(messageEvent))
+                                return InternalServerError();
+
+
                         }
                         else
                         {
@@ -84,72 +89,92 @@ namespace ManageShop.Controllers.api
 
                 }
             }
-
-
-            //var test = body["entry"][0]["messaging"][0]["message"];
-
-
-            //if (test != null)
-            //{
-
-            //    string custId = (string)body["entry"][0]["messaging"][0]["sender"]["id"];
-            //    string msg = (string)test["text"];
-            //    string responseMsg;
-            //    //1. process msg
-            //    if (msg.ToLower().Contains("hi") || msg.ToLower().Contains("hello"))
-            //    {
-            //        responseMsg = "Hello " + custId + ".What can i help you?";
-            //    }
-            //    else
-            //    {
-            //        responseMsg = "Sorry, i don't understand it. Would you like to buy something?";
-            //    }
-
-            //    //2. send response msg
-
-            //    if (await ReplyMessage(_pageToken, responseMsg, custId))
-            //    {
-            //        return Ok();
-            //    }
-            //    else
-            //    {
-            //        //log error
-            //        return InternalServerError();//500
-            //    }
-
-            //    MessageWebhookLog mess = new MessageWebhookLog { MessageText = (string)msg, Timestamp = (string)body["entry"][0]["messaging"][0]["timestamp"] };
-            //    _context.MessageWebhookLogs.Add(mess);
-            //    _context.SaveChanges();
-            //}
-
             return Ok();
         }
 
-        private async Task<bool> handleMessageEvent(JToken messageEvent)
+
+        private bool CheckEntity(JToken nlp, string name)
+        {
+            return nlp?["entities"]?[name]?[0] != null;
+        }
+
+        private async Task<bool> HandleMessageEvent(JToken messageEvent)
         {
             var senderID = messageEvent["sender"]["id"];//Cust PSID
             var recipientID = messageEvent["recipient"]["id"];//this is page PSID
             var timeOfMessage = messageEvent["timestamp"];
-            string message = messageEvent["message"].ToString();
-            //var nlp;
-
+            string message = messageEvent["message"]["text"].ToString();
+            var nlp = messageEvent["message"]["nlp"];
             string responseMsg = null;
 
             //1. Process msg to get the reply msg
-            if (message.ToLower().Contains("hi") || message.ToLower().Contains("hello"))
+            //Check for ask_price and ask_is_available
+            if (CheckEntity(nlp,"intent"))
             {
-                responseMsg = "Hello " + senderID + ".What can i help you?";
+
+                
+                var intent = nlp["entities"]["intent"][0]["value"];
+
+                //handle intent
+                switch (intent.ToString())
+                {
+                    case "ask_price":
+                        //check whether wit.ai detect productId
+                        var productId = nlp["entities"]["productId"]?[0]?["value"];
+                        if (productId != null)
+                        {
+                            //get product info from DB
+                            var product = _context.Products.Find(int.Parse(productId.ToString()));
+                            if (product == null)
+                                responseMsg = "Not found product";
+                            else
+                                responseMsg = $"Product {product.Id} has price {product.Price}";
+                            //responseMsg = $"You ask price of product {productId}";
+                        }
+                        else
+                        {
+                            responseMsg = "Sorry we can't get product ID, Please enter the productID.";
+                        }
+
+                        break;
+                    default: break;
+                }
+                //var productType = nlp["entities"]["productType"];
             }
             else
             {
-                responseMsg = "Sorry, i don't understand it. Would you like to buy something?";
+                responseMsg = $"Hello, You have sent {message}";
+
             }
+
+
+
             //2. Call Send Txt Msg
             return await SendTextMessage(senderID.ToString(), responseMsg);
 
-    }
+        }
 
-        private async Task<bool> SendTextMessage(string recipientId,string msg)
+        private async Task<bool> HandlePostbackEvent(JToken messageEvent)
+        {
+            var senderID = messageEvent["sender"]["id"];//Cust PSID
+            var recipientID = messageEvent["recipient"]["id"];//this is page PSID
+            var timeOfMessage = messageEvent["timestamp"];
+            string payload = messageEvent["postback"]["payload"].ToString();
+            //var nlp;
+
+            //payload is setting by USER
+            //1. Process msg to get the reply msg
+            switch (payload)
+            {
+                case "get_start_payload":
+                    return await SendTextMessage(senderID.ToString(), "This is get_started response postback");
+                default: break;
+            }
+            //2. Call Send Txt Msg
+            return await SendTextMessage(senderID.ToString(), "Cannot understand payback");
+        }
+
+        private async Task<bool> SendTextMessage(string recipientId, string msg)
         {
             JObject data = JObject.FromObject(new
             {
@@ -181,27 +206,27 @@ namespace ManageShop.Controllers.api
         }
 
         private static async Task<bool> ReplyMessage(string token, string msg, string custId)
-    {
-        HttpClient client = new HttpClient();
-
-        JObject data = JObject.FromObject(new
         {
-            messaging_type = "RESPONSE",
-            recipient = new
-            {
-                id = custId
-            },
-            message = new
-            {
-                text = msg
-            }
-        });
-        var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
-        var result = await client.PostAsync($"https://graph.facebook.com/v4.0/me/messages?access_token={token}", content);
-        if (!result.IsSuccessStatusCode)
-            return false;
-        return true;
-    }
+            HttpClient client = new HttpClient();
 
-}
+            JObject data = JObject.FromObject(new
+            {
+                messaging_type = "RESPONSE",
+                recipient = new
+                {
+                    id = custId
+                },
+                message = new
+                {
+                    text = msg
+                }
+            });
+            var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
+            var result = await client.PostAsync($"https://graph.facebook.com/v4.0/me/messages?access_token={token}", content);
+            if (!result.IsSuccessStatusCode)
+                return false;
+            return true;
+        }
+
+    }
 }

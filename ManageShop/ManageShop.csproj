@@ -19,7 +19,8 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44378</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -159,6 +160,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiHelper\ApiHelper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -242,6 +244,10 @@
     <Compile Include="Migrations\201909291318061_ChangeTypeModelMessage.cs" />
     <Compile Include="Migrations\201909291318061_ChangeTypeModelMessage.Designer.cs">
       <DependentUpon>201909291318061_ChangeTypeModelMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910020659079_AddProperTyForAlbumModel.cs" />
+    <Compile Include="Migrations\201910020659079_AddProperTyForAlbumModel.Designer.cs">
+      <DependentUpon>201910020659079_AddProperTyForAlbumModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
@@ -408,6 +414,9 @@
     <EmbeddedResource Include="Migrations\201909291318061_ChangeTypeModelMessage.resx">
       <DependentUpon>201909291318061_ChangeTypeModelMessage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910020659079_AddProperTyForAlbumModel.resx">
+      <DependentUpon>201910020659079_AddProperTyForAlbumModel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
@@ -434,7 +443,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51382</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44378/</IISUrl>
+          <IISUrl>http://localhost:51382/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

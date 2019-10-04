@@ -64,7 +64,7 @@
             FB.api(pageId,
                 'GET',
                 {
-                    fields : `access_token`,
+                    fields: `access_token`,
                     access_token: access_token
                 },
                 res => {
@@ -113,31 +113,31 @@
 
         function renderUserInfo(res) {
             let table = `<table class="table table-bordered table-dark">
-                                <caption>User info</caption>
-                                <tr>
-                                    <th>Name</th>
-                                    <td>${res.name}</td>
-                                </tr>
-                                <tr>
-                                    <th>ID</th>
-                                    <td>${res.id}</td>
-                                </tr>
-                                <tr>
-                                    <th>Access_Token</th>
-                                    <td><textarea class="form-control"  rows="4">${access_token}</textarea></td>
-                                </tr>
-                            </table>`
+                                    <caption>User info</caption>
+                                    <tr>
+                                        <th>Name</th>
+                                        <td>${res.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <td>${res.id}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Access_Token</th>
+                                        <td><textarea class="form-control"  rows="4">${access_token}</textarea></td>
+                                    </tr>
+                                </table>`
             $(".info-wrapper").append(table);
             //add post on fb form
             let form = `<form action="https://graph.facebook.com/v4.0/${res.id}/photos" method="post" enctype="multipart/form-data">
-                            <label>Caption</label>
-                            <input type="text" value="" name="caption" class="form-control" />
-                            <label>Url</label>
-                            <input type="text" name="url" value="https://ucarecdn.com/ae1e3eec-5ef1-471e-8b43-b8e4c95861e4/-/preview/950x950/-/filter/sorlen/-34/" />
-                            <label>User Token</label>
-                            <input type="text" name="access_token" value="${access_token}" />
-                            <button type="submit">Send</button>
-                        </form>`;
+                                <label>Caption</label>
+                                <input type="text" value="" name="caption" class="form-control" />
+                                <label>Url</label>
+                                <input type="text" name="url" value="https://ucarecdn.com/ae1e3eec-5ef1-471e-8b43-b8e4c95861e4/-/preview/950x950/-/filter/sorlen/-34/" />
+                                <label>User Token</label>
+                                <input type="text" name="access_token" value="${access_token}" />
+                                <button type="submit">Send</button>
+                            </form>`;
             $("#logged-wrapper").append(form);
 
         }
@@ -145,14 +145,14 @@
         function postFb() {
             //Through Fb API
             FB.api('1659222677486198/feed',
-                    'POST',
+                'POST',
                 {
                     "message": "Test by me",
                     access_token: "EAAEk1ybcCooBAEuUfW2G3RRe1XlrU50Nu9GpXcMZCck3Fgs1ZAeaU6BYZADY3km6LwSU8p8qksZBrqyWPC2xwmGtxeUQluOGOZAysTfjdNaHjTEGZAC2ZBUvxr1enJD66GQu8tZBi26GEkoOOWtnFCH4kf2U4BmBz4GLlZBmCPMNWP9KZAW0v25nIQG0hLJzw5gRBZBN4ByhI5JzAZDZD"
                 },
-                    res => {
-                        console.log(res);
-                    }
+                res => {
+                    console.log(res);
+                }
             )
 
         }
@@ -161,13 +161,13 @@
         function uploadMultipleFileToAlbum() {
 
 
-            let input = $(`input[name="files"]`);
+            const input = $(`input[name="files"]`);
             console.log(input.prop('files'));
             let inputFiles = input.prop('files');
             //return;
             let batch = [];
             let data = {};
-            let photoUrl = ["https://ucarecdn.com/7395c1ad-4bc0-4267-bb01-b3821a36a77f/WhiteSandsNewMexico1920x1080.jpg","https://ucarecdn.com/d1057f6e-27f6-4dbc-bf84-76dff8c11a17/AlorIslandsIndonesia1920x1080.jpg"];
+            let photoUrl = ["https://ucarecdn.com/7395c1ad-4bc0-4267-bb01-b3821a36a77f/WhiteSandsNewMexico1920x1080.jpg", "https://ucarecdn.com/d1057f6e-27f6-4dbc-bf84-76dff8c11a17/AlorIslandsIndonesia1920x1080.jpg"];
 
             const albumId = 2959732954101824;
             //for (var i = 0; i < 2; i++) {
@@ -205,6 +205,86 @@
                     console.log(res);
                 }
             })
+        }
+
+        function multiplePhotoRequest() {
+
+            let pageId = "1659222677486198";
+            let pageToken = "EAAEk1ybcCooBAPbgQa21ZAZCS1eVZBZBR7jg2Ked0JhLe7y6Mon93RVOoZCLvZB1vS1iC2jfXGc0lWrkNKlzIbqajR9Wfe4uVU8oojZAL8p4WbF4WazUiM2zuXRoZAZAfEZBNASjZBJktRbCqOyP90klsl01b7RZAnAFolrFNdBZCXYZAcMAZDZD";
+            let imageUrl = ["https://ucarecdn.com/5eb7b2cc-eed7-4d99-8fac-540c346aae3c/71168328_1380178058799234_7841529943602233344_n.jpg", "https://ucarecdn.com/bd617f80-6019-4829-bde6-8a68abbae351/Quiz1_2.png"];
+            let batch = [];
+
+            let data = {};
+            for (let i = 0; i < imageUrl.length; i++) {
+                let query = {};
+                query.method = "POST";
+                //query.relative_url = `${pageId}/photos`;
+                //query.body = `message= Picture${i + 1};url='${imageUrl[i]}'`;
+                query.relative_url = `${pageId}/photos`;
+                query.body = `message= Picture${i + 1};`;
+                query.attached_files = `file${i + 1}`;
+
+                
+                //TEST MULTIPLE POST [SUCCESSFUL]
+                //query.relative_url = `${pageId}/feed`;
+                //query.body = `message= Picture${i + 1};link='${imageUrl[i]}'`;
+                batch[i] = query;
+            }
+            data.batch = JSON.stringify(batch);
+            for (var i = 0; i < imageUrl.length; i++) {
+                data[`file${i + 1}`] = imageUrl[i];
+            }
+            data.access_token = pageToken;
+
+            console.log(JSON.stringify(data));
+
+            $.ajax({
+                type: 'POST',
+                url: `https://graph.facebook.com/`,
+                data: data,
+                success: function (res) {
+                    console.log("Uploading multiple file....")
+                    console.log(res);
+                },
+                error: function (res) {
+                    alert('Error')
+                    console.log(res);
+                }
+            });
+
+
+            FB.api('/', 'POST', {
+                batch: [
+                    { method: 'GET', relative_url: 'me/friends'},
+                    { method: "POST",relative_url: "me/feed", body : $.param(opts) }
+                ]
+            }, function (response) {
+                console.log(response);
+            });
+
+        }
+
+        function postOnePhoto() {
+
+            let pageToken = "EAAEk1ybcCooBAPbgQa21ZAZCS1eVZBZBR7jg2Ked0JhLe7y6Mon93RVOoZCLvZB1vS1iC2jfXGc0lWrkNKlzIbqajR9Wfe4uVU8oojZAL8p4WbF4WazUiM2zuXRoZAZAfEZBNASjZBJktRbCqOyP90klsl01b7RZAnAFolrFNdBZCXYZAcMAZDZD";
+
+            $.ajax({
+                type: 'POST',
+                url: `https://graph.facebook.com/1659222677486198/photos`,
+                data: {
+                    message: "Test post a photo",
+                    url: "https://ucarecdn.com/bd617f80-6019-4829-bde6-8a68abbae351/Quiz1_2.png",
+                    access_token: pageToken
+                },
+                success: function (res) {
+                    console.log("Uploading a photo....")
+                    console.log(res);
+                },
+                error: function (res) {
+                    alert('Error')
+                    console.log(res);
+                }
+            });
         }
 
     </script>
@@ -276,11 +356,11 @@
             <input type="text" value="" name="message" class="form-control" placeholder="Description of album" />
             <br />
             <!--<label>Share Album</label>
-        <input type="checkbox" name="make_shared_album" value="true" checked/>-->
+            <input type="checkbox" name="make_shared_album" value="true" checked/>-->
 
             <br />
             <!--<label>Url</label>
-        <input type="text" name="url" value="https://ucarecdn.com/ae1e3eec-5ef1-471e-8b43-b8e4c95861e4/-/preview/950x950/-/filter/sorlen/-34/" />-->
+            <input type="text" name="url" value="https://ucarecdn.com/ae1e3eec-5ef1-471e-8b43-b8e4c95861e4/-/preview/950x950/-/filter/sorlen/-34/" />-->
 
             <input type="file" name="source" value="" />
 
@@ -288,7 +368,7 @@
                    name="access_token" />
             <button type="submit">Send</button>
         </form>
-        
+
         <h1 class="badge bg-primary">POST WITH EXISTED ALBUM</h1>
 
         <form action="https://graph.facebook.com/v4.0/2959732954101824/photos" method="POST">
@@ -299,8 +379,12 @@
         </form>
 
         <h1>Test upload multiple photo to existed album</h1>
-        <button class="btn btn-success" onclick="uploadMultipleFileToAlbum()">Upload multiple</button>
-        <input type="file" multiple name="files"/>
+        <button class="btn btn-success" onclick="multiplePhotoRequest()">Upload multiple</button>
+        <input type="file" multiple name="files" />
+
+
+        <h5>Post one photo</h5>
+        <button class="btn btn-outline-dark" onclick="postOnePhoto()">Post one photo</button>
 
     </div>
 </body>

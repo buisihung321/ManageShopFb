@@ -111,11 +111,11 @@
                 @Html.ActionLink("Detail", "Edit", "Album", new { albumId = album.AlbumId }, new { @class = "btn btn-secondary btn-sm" })
                 @if (!album.HasPosted)
                 {
-                    <a href="#" class="btn btn-primary btn-sm">Post on FB</a>
+                    <a href="/Album/PostToFb/@album.AlbumId" class="btn btn-primary btn-sm">Post on FB</a>
                 }
                 else
                 {
-                    <button href="#" class="btn btn-success btn-sm" disabled>Posted</button>
+                    <a href="@album.FbLink" target="_blank"  class="btn btn-success btn-sm">See on Fb</a>
                 }
                 <a href="/Album/Remove/@album.Id" class="btn btn-danger btn-sm delete-link">Delete Album</a>
             </div>
