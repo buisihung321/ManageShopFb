@@ -19,7 +19,8 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44378</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -87,12 +88,21 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -150,14 +160,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiHelper\ApiHelper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StartupConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
+    <Compile Include="Controllers\api\Webhook.cs" />
+    <Compile Include="Controllers\api\WebHookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\WebhookController.cs" />
     <Compile Include="DAL\ManageShopContext.cs" />
     <Compile Include="DTO\AlbumDTO.cs" />
     <Compile Include="Global.asax.cs">
@@ -223,15 +238,33 @@
     <Compile Include="Migrations\201909250309451_Manytomanybetweenalbumandcategory.Designer.cs">
       <DependentUpon>201909250309451_Manytomanybetweenalbumandcategory.cs</DependentUpon>
     </Compile>
+
     <Compile Include="Migrations\201910031458578_AddOrder.cs" />
     <Compile Include="Migrations\201910031458578_AddOrder.Designer.cs">
       <DependentUpon>201910031458578_AddOrder.cs</DependentUpon>
+
+    <Compile Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.cs" />
+    <Compile Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.Designer.cs">
+      <DependentUpon>201909291020317_AddMessageModelForMessageWebhook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909291318061_ChangeTypeModelMessage.cs" />
+    <Compile Include="Migrations\201909291318061_ChangeTypeModelMessage.Designer.cs">
+      <DependentUpon>201909291318061_ChangeTypeModelMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910020659079_AddProperTyForAlbumModel.cs" />
+    <Compile Include="Migrations\201910020659079_AddProperTyForAlbumModel.Designer.cs">
+      <DependentUpon>201910020659079_AddProperTyForAlbumModel.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Category.cs" />
+
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
+
+    <Compile Include="Models\MessageWebhookLog.cs" />
+
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\ViewModel\AlbumDetailViewModel.cs" />
@@ -319,6 +352,8 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="bundleconfig.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\hungdotnet.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -374,7 +409,11 @@
     <Content Include="Views\Album\Edit.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Nav.cshtml" />
+
     <Content Include="Views\Order\Index.cshtml" />
+
+    <Content Include="Views\Webhook\Index.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -431,8 +470,19 @@
     <EmbeddedResource Include="Migrations\201909250309451_Manytomanybetweenalbumandcategory.resx">
       <DependentUpon>201909250309451_Manytomanybetweenalbumandcategory.cs</DependentUpon>
     </EmbeddedResource>
+
     <EmbeddedResource Include="Migrations\201910031458578_AddOrder.resx">
       <DependentUpon>201910031458578_AddOrder.cs</DependentUpon>
+
+    <EmbeddedResource Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.resx">
+      <DependentUpon>201909291020317_AddMessageModelForMessageWebhook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909291318061_ChangeTypeModelMessage.resx">
+      <DependentUpon>201909291318061_ChangeTypeModelMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910020659079_AddProperTyForAlbumModel.resx">
+      <DependentUpon>201910020659079_AddProperTyForAlbumModel.cs</DependentUpon>
+
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -460,7 +510,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51382</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44378/</IISUrl>
+          <IISUrl>http://localhost:51382/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
