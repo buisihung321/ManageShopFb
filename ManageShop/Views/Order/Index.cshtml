@@ -1,0 +1,74 @@
+﻿@model ManageShop.Models.ViewModel.OrderViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Order</h2>
+
+<table class="table table-responsive">
+    <tr>
+        <td>Order Date</td>
+        <td>
+            <input type="text" id="orderDate" class="form-control" />
+        </td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td colspan="3">
+            <textarea type="text" id="orderDes" class="form-control"></textarea>
+        </td>
+    </tr>
+</table>
+<h1>Order Items</h1>
+<table id="orders" class="table table-bordered table-hover">
+    <tr>
+        <td>Album</td>
+        <td>Product</td>
+        <td>Quantity</td>
+        <td>Price</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr class="mycontainer" id="mainrow">
+        <td>
+            @Html.DropDownListFor(m => m.Album.Name, new SelectList(Model.Albums, "Id", "Name"), "Select Album", new { @class = "form-control", @id = "album" })
+        </td>
+        <td>
+            @Html.DropDownListFor(m => m.Product.Name, new SelectList(Model.Products, "Id", "Name"), "Select Product", new { @class = "form-control", @id = "product" })
+        </td>
+        <td>
+            <input type="text" class="form-control" id="quantity" />
+        </td>
+        <td>
+            <input type="text" class="form-control" id="price" />
+        </td>
+        <td>
+            <input id="add" type="button" value="add" class="btn btn-success" style="width:80px" />
+        </td>
+    </tr>
+</table>
+<div id="orderItems">
+    <table class="table table-responsive table-bordered table-hover" id="orderdetailsItems">
+    </table>
+</div>
+<div style="padding:10px 0; text-align:right">
+    <button type="submit" class="btn btn-warning" style="padding:10px 20px" id="submit">
+        Save
+    </button>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    <script src="@Url.Content("~/Scripts/myScript.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#orderDate').datepicker({
+                dateFormat: 'mm-dd-yy'
+            })
+        });
+    </script>
+}
+
+
+
