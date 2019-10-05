@@ -170,6 +170,7 @@
     <Compile Include="Controllers\api\Webhook.cs" />
     <Compile Include="Controllers\api\WebHookController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\WebhookController.cs" />
     <Compile Include="DAL\ManageShopContext.cs" />
@@ -237,6 +238,10 @@
     <Compile Include="Migrations\201909250309451_Manytomanybetweenalbumandcategory.Designer.cs">
       <DependentUpon>201909250309451_Manytomanybetweenalbumandcategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910031458578_AddOrder.cs" />
+    <Compile Include="Migrations\201910031458578_AddOrder.Designer.cs">
+      <DependentUpon>201910031458578_AddOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.cs" />
     <Compile Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.Designer.cs">
       <DependentUpon>201909291020317_AddMessageModelForMessageWebhook.cs</DependentUpon>
@@ -249,12 +254,20 @@
     <Compile Include="Migrations\201910020659079_AddProperTyForAlbumModel.Designer.cs">
       <DependentUpon>201910020659079_AddProperTyForAlbumModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910041003032_Merge.cs" />
+    <Compile Include="Migrations\201910041003032_Merge.Designer.cs">
+      <DependentUpon>201910041003032_Merge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
     <Compile Include="Models\MessageWebhookLog.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\Test.cs" />
     <Compile Include="Models\ViewModel\AlbumDetailViewModel.cs" />
+    <Compile Include="Models\ViewModel\OrderViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +282,47 @@
     <Content Include="Content\DetailPage.css" />
     <Content Include="Content\Image\background.jpg" />
     <Content Include="Content\Image\backgroudn2.jpg" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -305,11 +359,14 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\myScript.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -351,6 +408,7 @@
     <Content Include="Views\Album\Edit.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Nav.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Webhook\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -408,6 +466,9 @@
     <EmbeddedResource Include="Migrations\201909250309451_Manytomanybetweenalbumandcategory.resx">
       <DependentUpon>201909250309451_Manytomanybetweenalbumandcategory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910031458578_AddOrder.resx">
+      <DependentUpon>201910031458578_AddOrder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.resx">
       <DependentUpon>201909291020317_AddMessageModelForMessageWebhook.cs</DependentUpon>
     </EmbeddedResource>
@@ -416,6 +477,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910020659079_AddProperTyForAlbumModel.resx">
       <DependentUpon>201910020659079_AddProperTyForAlbumModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910041003032_Merge.resx">
+      <DependentUpon>201910041003032_Merge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
