@@ -488,6 +488,16 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ManageShop.Domain\ManageShop.Domain.csproj">
+      <Project>{8dd62818-da50-4ca4-96e0-45363091fec5}</Project>
+      <Name>ManageShop.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManageShop.Server.Bussiness\ManageShop.Server.Bussiness.csproj">
+      <Project>{2800e6d2-c2c7-4133-a0eb-328fd470eaab}</Project>
+      <Name>ManageShop.Server.Bussiness</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
