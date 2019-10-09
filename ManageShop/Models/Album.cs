@@ -11,7 +11,6 @@ namespace ManageShop.Models
         public Album()
         {
             CreatedTime = DateTime.Now;
-            Categories = new List<Category>();
         }
 
         public string PhotoCover { get; set; }
@@ -26,7 +25,7 @@ namespace ManageShop.Models
 
         public DateTime CreatedTime { get; set; }
 
-        public ICollection<Category> Categories{ get; set; }
-
+        //public ICollection<Category> Categories { get; set; }
+        public string Caterogies { get; set; }
     }
 }

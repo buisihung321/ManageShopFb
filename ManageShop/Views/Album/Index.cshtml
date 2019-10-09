@@ -99,12 +99,15 @@
                 <p class="card-text">@album.Description</p>
                 <p class="card-text">
                     Category:
-                    @{
-                        foreach (var category in album.Categories)
+                    @if (album.Caterogies != null)
+                    {
+                        string[] categories = album.Caterogies.Split(',');
+                        foreach (var category in categories)
                         {
-                              <span class="bg-info badge">@category.Name</span>
+                            <span class="bg-info badge">@category</span>
                         }
                     }
+                    else { <span class="badge">..</span>}
                 </p>
 
                 

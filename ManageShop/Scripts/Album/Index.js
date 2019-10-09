@@ -24,17 +24,17 @@ saveAlbumBtn.click(sendAlbumAddRequest);
 
 function getInputForAddAlbum() {
     let album = {};
-    let categories = [];
+    let categories = "";
     let products = [];
 
-
+    //1. Get Album info
     album.Name = albumWrapper.find(`input[name="Name"]`).val();
     album.AlbumId = albumWrapper.find(`input[name="AlbumId"]`).val();
     album.Description = albumWrapper.find(`textarea[name="Description"]`).val();
-    console.log(album);
     //get categories
     //split category by comma
-    categories = albumWrapper.find(`input[name="categories"]`).val().split(",");
+    //categories = albumWrapper.find(`input[name="categories"]`).val().split(",");
+        album.Caterogies = albumWrapper.find(`input[name="categories"]`).val();
 
     let productsObj = $("#album-modal #product-container .product");
     //validate at least 1 product
@@ -43,7 +43,7 @@ function getInputForAddAlbum() {
         return null;
     }
     
-    //get info for Product
+    //2. Get info for Product
 
     productsObj.each((index, ele) => {
         let product = {};
@@ -54,15 +54,14 @@ function getInputForAddAlbum() {
         product.PhotoUUID = $(ele).attr('id');
 
         products.push(product);
-    })
-    console.log(products)
+    });
 
 
     album.PhotoCover = albumWrapper.find(`input[name="PhotoCover"]`).val() == '' || null
         ? products[0].PhotoUUID : albumWrapper.find(`input[name="PhotoCover"]`).val();
 
 
-    return { "album": album, "products": products, "categories": categories };
+    return { "album": album, "products": products};
 }
 
 //1. Funtion to send request for add new album
@@ -96,12 +95,12 @@ function sendAlbumAddRequest() {
 
 }
 
-function loadCategory(uuid) {
-    $.ajax({
-        type: 'GET',
+//function loadCategory(uuid) {
+//    $.ajax({
+//        type: 'GET',
 
-    })
-}
+//    })
+//}
 
 
 //2. add progress bar
