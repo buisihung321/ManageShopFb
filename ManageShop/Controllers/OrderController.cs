@@ -32,6 +32,17 @@ namespace ManageShop.Controllers
             return View("Index", viewModel);
         }
 
+       public ActionResult Save(IEnumerable<OrderDetail> orderDetails,Order order)
+       {
+            foreach(OrderDetail orderDetail in orderDetails)
+            {
+                order.OrderDetails.Add(orderDetail);
+            }
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+            return Content("Success");
+       }
+
        
 
     }

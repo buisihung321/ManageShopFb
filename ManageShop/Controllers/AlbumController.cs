@@ -97,7 +97,12 @@ namespace ManageShop.Controllers
             };
             return View(viewModel);
         }
-
+        [HttpPost]
+        public ActionResult LoadProduct(string albumId)
+        {
+           IEnumerable<Product> Products = _context.Products.Include(prod => prod.Album).Where(prod => prod.AlbumId == albumId).ToList();
+            return Json(new { product = Products });
+        }
 
         public ActionResult AddPhoto(Product prod)
         {

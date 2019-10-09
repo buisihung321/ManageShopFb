@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<table id="orders" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>Order Date</th>
+            <th>Description</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+@*<link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.60/pdfmake.js.map/cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    <script src="//cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#orders").DataTable({
+                "ajax": {
+                    "url": "/ViewOrder/GetList",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    {
+                        "data": "OrderId",
+                        render: function (data, type, orderDetails) {
+                            return "<a href='/ViewOrder/Details/" + orderDetails.OrderId + "'>" + orderDetails.OrderId + "</a>";
+                        }
+                    },
+                    {
+                        "data": "OrderDate",
+
+                    },
+                    { "data": "Description" },
+                    { "data": "Total" },
+                ]
+            });
+        });
+    </script>
+}
