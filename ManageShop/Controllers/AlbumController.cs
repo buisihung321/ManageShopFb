@@ -1,6 +1,4 @@
-﻿using ManageShop.DAL;
-using ManageShop.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +7,8 @@ using System.Data.Entity;
 using System.IO;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
+using ManageShop.DAL;
+using ManageShop.Models;
 using ManageShop.Models.ViewModel;
 using Newtonsoft.Json.Linq;
 

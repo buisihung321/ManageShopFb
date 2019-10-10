@@ -3,20 +3,26 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<div class="page-header mb-2">
+    <h2>List</h2>
+    <a class="btn btn-outline-success" href="/Order/Create">Create Order</a>
+</div>
 
 <table id="orders" class="table table-bordered table-hover">
     <thead>
-        <tr>
-            <th>Order Id</th>
-            <th>Order Date</th>
-            <th>Description</th>
-            <th>Total</th>
-        </tr>
+    <tr>
+        <th>Order Id</th>
+        <th>Order Date</th>
+        <th>Description</th>
+        <th>Total</th>
+    </tr>
     </thead>
     <tbody>
     </tbody>
 </table>
+
+
+
 @*<link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" />*@
 <link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.60/pdfmake.js.map/cdn.datatables.net/1.10.15/css/dataTables.bootstrap4.min.css" rel="stylesheet" />

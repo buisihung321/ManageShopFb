@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -50,10 +49,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -172,11 +171,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-
     <Compile Include="Controllers\WebhookController.cs" />
-
     <Compile Include="Controllers\ViewOrderController.cs" />
-
     <Compile Include="DAL\ManageShopContext.cs" />
     <Compile Include="DTO\AlbumDTO.cs" />
     <Compile Include="Global.asax.cs">
@@ -246,7 +242,6 @@
     <Compile Include="Migrations\201910031458578_AddOrder.Designer.cs">
       <DependentUpon>201910031458578_AddOrder.cs</DependentUpon>
     </Compile>
-
     <Compile Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.cs" />
     <Compile Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.Designer.cs">
       <DependentUpon>201909291020317_AddMessageModelForMessageWebhook.cs</DependentUpon>
@@ -270,7 +265,7 @@
     <Compile Include="Migrations\201910080952339_ChangePropertyForAlbumModel.cs" />
     <Compile Include="Migrations\201910080952339_ChangePropertyForAlbumModel.Designer.cs">
       <DependentUpon>201910080952339_ChangePropertyForAlbumModel.cs</DependentUpon>
-
+    </Compile>
     <Compile Include="Migrations\201910040945033_DescriptionToOrder.cs" />
     <Compile Include="Migrations\201910040945033_DescriptionToOrder.Designer.cs">
       <DependentUpon>201910040945033_DescriptionToOrder.cs</DependentUpon>
@@ -286,7 +281,14 @@
     <Compile Include="Migrations\201910080503289_updateOrderdetails.cs" />
     <Compile Include="Migrations\201910080503289_updateOrderdetails.Designer.cs">
       <DependentUpon>201910080503289_updateOrderdetails.cs</DependentUpon>
-
+    </Compile>
+    <Compile Include="Migrations\201910091306407_Mergeraaaa.cs" />
+    <Compile Include="Migrations\201910091306407_Mergeraaaa.Designer.cs">
+      <DependentUpon>201910091306407_Mergeraaaa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910091319239_ChangeName.cs" />
+    <Compile Include="Migrations\201910091319239_ChangeName.Designer.cs">
+      <DependentUpon>201910091319239_ChangeName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
@@ -418,6 +420,7 @@
     <Content Include="Content\DetailPage.css" />
     <Content Include="Content\Image\background.jpg" />
     <Content Include="Content\Image\backgroudn2.jpg" />
+    <Content Include="Content\Order\Index.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -551,13 +554,10 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="bundleconfig.json" />
-
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\hungdotnet.pubxml" />
-
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
-
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -613,13 +613,10 @@
     <Content Include="Views\Album\Edit.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Nav.cshtml" />
-    <Content Include="Views\Order\Index.cshtml" />
-
+    <Content Include="Views\Order\Create.cshtml" />
     <Content Include="Views\Webhook\Index.cshtml" />
-
     <Content Include="Views\ViewOrder\Index.cshtml" />
     <Content Include="Views\ViewOrder\Details.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -679,7 +676,6 @@
     <EmbeddedResource Include="Migrations\201910031458578_AddOrder.resx">
       <DependentUpon>201910031458578_AddOrder.cs</DependentUpon>
     </EmbeddedResource>
-
     <EmbeddedResource Include="Migrations\201909291020317_AddMessageModelForMessageWebhook.resx">
       <DependentUpon>201909291020317_AddMessageModelForMessageWebhook.cs</DependentUpon>
     </EmbeddedResource>
@@ -697,7 +693,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910080952339_ChangePropertyForAlbumModel.resx">
       <DependentUpon>201910080952339_ChangePropertyForAlbumModel.cs</DependentUpon>
-
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910040945033_DescriptionToOrder.resx">
       <DependentUpon>201910040945033_DescriptionToOrder.cs</DependentUpon>
     </EmbeddedResource>
@@ -709,7 +705,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910080503289_updateOrderdetails.resx">
       <DependentUpon>201910080503289_updateOrderdetails.cs</DependentUpon>
-
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910091306407_Mergeraaaa.resx">
+      <DependentUpon>201910091306407_Mergeraaaa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910091319239_ChangeName.resx">
+      <DependentUpon>201910091319239_ChangeName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -752,10 +753,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.3.0\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.3.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.3.0\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -19,7 +19,7 @@ namespace ManageShop.Controllers
             _context = new ManageShopContext();
         }
         // GET: Order
-        public ActionResult Index()
+        public ActionResult Create()
         {
             var albums = _context.Albums.ToList();
             var products = _context.Products.ToList();
@@ -29,7 +29,7 @@ namespace ManageShop.Controllers
                 Products = products
 
             };
-            return View("Index", viewModel);
+            return View("Create", viewModel);
         }
 
        public ActionResult Save(IEnumerable<OrderDetail> orderDetails,Order order)
@@ -40,7 +40,7 @@ namespace ManageShop.Controllers
             }
             _context.Orders.Add(order);
             _context.SaveChanges();
-            return Content("Success");
+            return RedirectToAction("Index", "ViewOrder");
        }
 
        
