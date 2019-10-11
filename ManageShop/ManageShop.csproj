@@ -418,8 +418,10 @@
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\DetailPage.css" />
+    <Content Include="Content\Image\background3.jpg" />
     <Content Include="Content\Image\background.jpg" />
     <Content Include="Content\Image\backgroudn2.jpg" />
+    <Content Include="Content\Image\not18.jpg" />
     <Content Include="Content\Order\Index.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -559,6 +561,7 @@
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -576,6 +579,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\Product\index.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -617,6 +621,10 @@
     <Content Include="Views\Webhook\Index.cshtml" />
     <Content Include="Views\ViewOrder\Index.cshtml" />
     <Content Include="Views\ViewOrder\Details.cshtml" />
+    <Content Include="Views\Product\List.cshtml" />
+    <Content Include="Views\Shared\_ProductList.cshtml" />
+    <Content Include="Views\Shared\_AlbumList.cshtml" />
+    <Content Include="Views\Shared\_EditProductModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

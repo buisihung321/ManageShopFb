@@ -22,12 +22,12 @@
 <div class="album-container">
     <h2>Albums List:</h2>
 
-
+    
     <!-- Button trigger modal -->
     @*<button type="button" class="btn btn-primary">
 
-        Add order for this album
-    </button>*@
+            Add order for this album
+        </button>*@
 
     <!-- Modal Add new Album-->
     <div class="modal fade" id="albumModal" tabindex="-1" role="dialog" aria-labelledby="albumModalLabel" aria-hidden="true">
@@ -83,51 +83,7 @@
 
     <!-- Album Lists -->
 
-    <div id="album-wrapper" class="d-flex flex-row flex-wrap align-items-stretch ">
-        @foreach (var album in Model)
-        {
-            <div class="card album-card mx-2 my-2" style="width: 18rem;">
-                <img src="https://ucarecdn.com/@album.PhotoCover/-/preview/950x950/-/filter/sorlen/-34/"
-                     class="card-img-top" width="100%" height="180"
-                     alt="Image Top" />
-                @*<svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text></svg>*@
-            <div class="card-body text-right">
-                <h5 class="card-title font-weight-bold">@album.Name</h5>
-                <p class="card-text">@album.Description</p>
-                <p class="card-text">
-                    Category:
-                    @if (album.Caterogies != null)
-                    {
-                        string[] categories = album.Caterogies.Split(',');
-                        foreach (var category in categories)
-                        {
-                            <span class="bg-info badge">@category</span>
-                        }
-                    }
-                    else { <span class="badge">..</span>}
-                </p>
-
-                
-                @Html.ActionLink("Detail", "Edit", "Album", new { albumId = album.AlbumId }, new { @class = "btn btn-secondary btn-sm" })
-                @if (!album.HasPosted)
-                {
-                    <a href="/Album/PostToFb/@album.AlbumId" class="btn btn-primary btn-sm">Post on FB</a>
-                }
-                else
-                {
-                    <a href="@album.FbLink" target="_blank"  class="btn btn-success btn-sm">See on Fb</a>
-                }
-                <a href="/Album/Remove/@album.Id" class="btn btn-danger btn-sm delete-link">Delete Album</a>
-            </div>
-            </div>
-        }
-        <div class="text-center mx-2 my-2 " style="min-width: 18rem;min-height: 15rem;">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#albumModal"
-                    style="width: 100%;height: 100%;">
-                Add new album
-            </button>
-        </div>
-    </div>
+    @Html.Partial("_AlbumList",Model)
 
 </div>
 

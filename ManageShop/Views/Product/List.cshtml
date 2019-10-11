@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ManageShop.Models.Product>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<div class="container-fluid py-2">
+    <h2>Product List</h2>
+
+
+    @*<form action="/Product/Search" method="GET">
+
+        </form>*@
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <select name="searchBy" class="custom-select" id="inputGroupSelect02">
+                <option value="" selected>Search by</option>
+                <option value="albumID">By AlbumID</option>
+                <option value="id">By ProductID</option>
+                <option value="Name">By ProductName</option>
+            </select>
+        </div>
+        <input type="text" name="searchValue" class="form-control" placeholder="Seach Value...">
+        <div class="input-group-append">
+            <button id="btnSearch" type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <div id="search-result-container">
+
+        @Html.Partial("_ProductList", Model)
+    </div>
+</div>
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/Product/index.js")"></script>
+}

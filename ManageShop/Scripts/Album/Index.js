@@ -229,4 +229,4 @@ function addSetAlbumCoverBtn(btn, photoUuid) {
 var deleteLink = $("a.delete-link");
 deleteLink.click(function () {
     return confirm('You want to delete this?');
-})
+})  

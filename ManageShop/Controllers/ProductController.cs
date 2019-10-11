@@ -2,6 +2,7 @@
 using ManageShop.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -36,26 +37,11 @@ namespace ManageShop.Controllers
         }
 
 
-        public ActionResult Update(Product prod)
-        {
-            var product = _context.Products.SingleOrDefault(p => p.PhotoUUID == prod.PhotoUUID);
-            if (product == null)
-                return HttpNotFound();
-
-            product.Name = prod.Name;
-            product.Price = prod.Price;
-            product.Quantity = prod.Quantity;
-
-            _context.SaveChanges();
-
-            return RedirectToAction("Edit", "Album", new { albumId = prod.AlbumId });
-        }
-
-        //public HttpStatusCodeResult Update(Product prod)
+        //public ActionResult Update(Product prod)
         //{
-        //    var product = _context.Products.Single(p => p.PhotoUUID == prod.PhotoUUID);
+        //    var product = _context.Products.SingleOrDefault(p => p.Id == prod.Id);
         //    if (product == null)
-        //        return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+        //        return HttpNotFound();
 
         //    product.Name = prod.Name;
         //    product.Price = prod.Price;
@@ -63,10 +49,27 @@ namespace ManageShop.Controllers
 
         //    _context.SaveChanges();
 
-        //    return new HttpStatusCodeResult(HttpStatusCode.OK);
+        //    return RedirectToAction("Edit", "Album", new { albumId = product.AlbumId });
         //}
 
+        public HttpStatusCodeResult Update(Product prod)
+        {
+           
+            var product = _context.Products.SingleOrDefault(p => p.Id == prod.Id);
+            if (product == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            product.Name = prod.Name;
+            product.Price = prod.Price;
+            product.Quantity = prod.Quantity;
+
+            _context.SaveChanges();
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
         #endregion
+
         public ActionResult Detail(string uuid)
         {
             var product = _context.Products.SingleOrDefault(prod => prod.PhotoUUID == uuid);
@@ -76,7 +79,24 @@ namespace ManageShop.Controllers
             return Json(product);
         }
 
-        
+        public ActionResult List()
+        {
+            var products = _context.Products.ToList();
+
+
+            return View("List",products);
+        }
+
+        [HttpPost]
+        public ActionResult Search(string searchBy,string searchValue)
+        {
+            var products = _context.Products.SqlQuery($"Select * from Products where {searchBy} Like @id",
+                new SqlParameter("@id", $"%{searchValue}%")).ToList();
+
+
+            return PartialView("_ProductList", products);
+        }
+
         // GET: Photo
         public ActionResult Remove(string uuid)
         {
