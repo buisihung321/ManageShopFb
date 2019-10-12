@@ -22,7 +22,8 @@ namespace ManageShop
         {
             //perform check for authentication
 
-
+            var auth = filterContext.ActionDescriptor.GetCustomAttributes(typeof(OverrideAuthenticationAttribute), true)
+                           .Length == 0;
 
             ////action Context give us to access req and res
             //if (actionContext.Request.Headers.Authorization == null)

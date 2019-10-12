@@ -313,7 +313,6 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetail.cs" />
-    <Compile Include="Models\MessageWebhookLog.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ViewModel\AlbumDetailViewModel.cs" />
     <Compile Include="Models\ViewModel\OrderViewModel.cs" />
@@ -2215,6 +2214,8 @@
     <None Include="Properties\PublishProfiles\hungdotnet.pubxml" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <None Include="Properties\PublishProfiles\obnoxiousseahorse-9796 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\obnoxiousseahorse-9796 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -2282,6 +2283,7 @@
     <Content Include="Views\Shared\_EditProductModal.cshtml" />
     <Content Include="Views\Product\SearchPaging.cshtml" />
     <Content Include="Views\Customer\Login.cshtml" />
+    <Content Include="Views\Customer\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

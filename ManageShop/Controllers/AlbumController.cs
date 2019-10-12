@@ -163,7 +163,8 @@ namespace ManageShop.Controllers
                 JObject productData = JObject.FromObject(new
                 {
                     url = photoUrl,
-                    message = product.Name,
+                    message = $"{product.Name}" +
+                              $"\nID: {product.Id}",
                     access_token = PageToken
                 });
                 var resultProduct = await ApiHelper.ApiHelper.CallApi(productApi, productData.ToString());

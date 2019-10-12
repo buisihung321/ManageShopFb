@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ManageShop.DAL
 {
-    public class ManageShopContext : IdentityDbContext
+    public class ManageShopContext : DbContext
     {
         public DbSet<Album> Albums { get; set; }
         public DbSet<Product> Products { get; set; }

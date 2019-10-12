@@ -146,10 +146,12 @@ $("#submit").click(function () {
         datatype: 'json',
         data: data,
         success: function (res) {
-
+            bootbox.alert("Save successful", function() {
+                window.location.href = res.newUrl;
+            });
         },
         err: function () {
-            console.log("Error when calling ajax")
+            bootbox.alert("Error when calling ajax")
         }
     })
 })

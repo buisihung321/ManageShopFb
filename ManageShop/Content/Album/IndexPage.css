@@ -38,6 +38,8 @@
             width: 100%;
             padding: 0 1rem;
         }
+        
+
 
 /*CARD LOADDING STATE*/
 
@@ -56,6 +58,15 @@
 .container-fluid .album-container {
     width: 90%;
     margin: 2em auto;
+}
+
+.album-container .card .album-desc {
+    font-size: 0.8rem;
+    max-height: 100px;
+    overflow-y: scroll;
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 1rem 0.5rem;
 }
 
 #album-modal {

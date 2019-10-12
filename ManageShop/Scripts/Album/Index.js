@@ -224,9 +224,3 @@ function addSetAlbumCoverBtn(btn, photoUuid) {
         albumWrapper.find(`input[name="PhotoCover"]`).val(photoUuid);
     })
 }
-
-//confirm delete
-var deleteLink = $("a.delete-link");
-deleteLink.click(function () {
-    return confirm('You want to delete this?');
-})  

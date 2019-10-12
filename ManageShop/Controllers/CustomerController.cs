@@ -6,6 +6,10 @@ using System.Web;
 using System.Web.Http.Results;
 using System.Web.Mvc;
 using ManageShop.DAL;
+using ManageShop.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 
 namespace ManageShop.Controllers
 {
@@ -27,12 +31,32 @@ namespace ManageShop.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+                return Content("You has logged in. Hello " + User.Identity.GetUserName());
             return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Register(Customer customer)
+        {
+
+
+            return null;
+
+
         }
 
         [HttpPost]
         public ActionResult Login(string username, string password)
         {
+
             if (AccountSecurity.Login(username, password))
                 return Content("Hello " + username);
             else
