@@ -13,6 +13,8 @@ namespace ManageShop
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            //Default to Show Album List Page
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
