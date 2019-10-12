@@ -1,3 +1,43 @@
 ﻿div#orderDetails {
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 10px 1px rgba(0, 0, 0, 0.3);
+    min-width: 380px;
+    padding: 0;
 }
+
+    div#orderDetails h2 {
+        font-size: 1.5rem;
+        font-style: italic;
+        padding: 0.5rem;
+        margin: 0;
+        background-color: #c0c0c0;
+    }
+
+
+    div#orderDetails .product-table td {
+        padding: 0.5rem;
+    }
+
+    div#orderDetails .product-table p {
+        margin: 0;
+    }
+div#orderDetails .product-table th {
+    padding: 0.5rem;
+}
+    div#orderDetails .product-table,
+    div#orderDetails .product-table input,
+    div#orderDetails .product-table button {
+        font-size: 0.7rem;
+    }
+
+        div#orderDetails .product-table tbody, 
+        div#orderDetails .product-table tfoot {
+            text-align: center;
+        }
+
+        div#orderDetails .product-table input {
+            width: 100%;
+        }
+
+        div#orderDetails .product-table .badge {
+            font-size: 120%;
+        }

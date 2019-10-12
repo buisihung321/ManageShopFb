@@ -39,39 +39,52 @@ function RenderProduct(products) {
             //tim xem co hay chua
             let product = productsDetail.find(`#${productID}`);
             console.log(product);
-            if (product.length!=0) {
+            if (product.length != 0) {
                 //Cap nhat quantity
-                
+
                 var newQuantity = parseInt(product.find("#quantityToSave").val()) + parseInt(quantity);
                 product.find("#quantityToSave").val(newQuantity);
                 console.log(newQuantity);
                 amount = newQuantity * price;
                 console.log(amount);
                 product.find("#amountToSave").val(amount);
-            } else {             
+            } else {
                 console.log(productWrapper);
                 //console.log(product)
-                var productName = productWrapper.find("#productName").text();       
+                var productName = productWrapper.find("#productName").text();
                 var amount = price * quantity;
                 var newRow = `<tr class='valueOrder' id='${productID}'>
-                <td> <input type='text' id='productToSave' class='form-control' value="${productName}" name='ProductId'/>
-                <input type="hidden" name="OrderDetail.ProductId" value="${productID}" />
+                <td>
+                    <div class="text-truncate" >
+                                    <p class="font-italic product-title text-truncate" style="max-width: 65px;">${productName}</p>
+                                    <input type='hidden' id='productToSave' class='form-control' value="${productName}" name='ProductId' />
+                                    <input type="hidden" name="OrderDetail.ProductId" value="${productID}" />
+                                </div>
                 </td>               
-                <td><input type='text' id='quantityToSave' class='form-control' value="${quantity}" name='OrderDetail.Quantity' /></td>
-                <td><input type='text' id='priceToSave' class='form-control' value="${price} " name='OrderDetail.UnitPrice' /></td>
-                <td><input type='text' id='amountToSave' class='form-control' value="${amount} " name='OrderDetail.Amount' /></td>
-                <td><input type='button' class='btn btn-danger remove' value='Remove' /></td></tr > `;
+                <td>
+                                        <input type='text' id='quantityToSave' class='' value="${quantity}" name='OrderDetail.Quantity' />
+                </td>
+                <td>
+                                        <input type='text' id='priceToSave' class='' value="${price} " name='OrderDetail.UnitPrice' />
+                </td>
+                <td>
+                                        <input type='text' id='amountToSave' class='' value="${amount} " name='OrderDetail.Amount' />
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-sm remove"><i class="far fa-trash-alt"></i></button>
+                </td>
+                </tr > `;
                 $("#orderdetailsItems").append(newRow);
-                removeOrder($(`#orderdetailsItems tr#${productID} input.remove`), productID);
+                removeOrder($(`#orderdetailsItems tr#${productID} button.remove`), productID);
 
             }
-            orderDetailsInput.text(parseInt(orderDetailsInput.text()) + parseInt(quantity * price));         
+            orderDetailsInput.text(parseInt(orderDetailsInput.text()) + parseInt(quantity * price));
         });
         //productname, quantity, price
         //luu xuong albumid, productid
     }
     function removeOrder(btn, productID) {
-        btn.click(()=> {
+        btn.click(() => {
             let productsDetail = $("#orderdetailsItems");
             let product = productsDetail.find(`#${productID}`);
             console.log("Remove");
@@ -96,7 +109,7 @@ function RenderProduct(products) {
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <input id="add" type="button" value="add" class="btn btn-success" style="width:80px" />
+                    <button id="add" class="btn btn-success btn-sm" >Add</button>
                 </div>
             </div>`;
         $('#product-container').append(product);

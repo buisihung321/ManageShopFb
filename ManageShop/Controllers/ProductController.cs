@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace ManageShop.Controllers
 {
@@ -85,6 +86,31 @@ namespace ManageShop.Controllers
 
 
             return View("List",products);
+        }
+
+        public ActionResult SearchPaging(string searchBy, string searchValue, int? page)
+        {
+            
+            if (searchBy == "albumID")
+            {
+               var products = _context.Products.Where(prod => prod.AlbumId.Contains(searchValue)).ToList()
+                    .ToPagedList(page ?? 1 , 3);
+               return View("SearchPaging", products);
+
+            }
+            else if(searchBy == "id")
+            {
+
+            }else if (searchBy == "Name")
+            {
+
+            }
+            else
+            {
+                return View(_context.Products.ToList().ToPagedList(page ?? 1, 3));
+            }
+
+            return null;
         }
 
         [HttpPost]

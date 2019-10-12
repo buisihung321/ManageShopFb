@@ -1,0 +1,15 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login Page</h2>
+
+
+@using (Html.BeginForm("Login", "Customer", FormMethod.Post))
+{
+    @Html.TextBox("username")
+    @Html.Password("password")
+    <input type="submit" value="Login"/>
+}
