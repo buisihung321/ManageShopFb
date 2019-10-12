@@ -31,7 +31,7 @@ namespace ManageShop.Controllers
             };
             return View("Create", viewModel);
         }
-
+        //Save
        public ActionResult Save(IEnumerable<OrderDetail> orderDetails,Order order)
        {
             foreach(OrderDetail orderDetail in orderDetails)
