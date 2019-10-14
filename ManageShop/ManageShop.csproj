@@ -297,6 +297,7 @@
     <Compile Include="Migrations\201910091319239_ChangeName.Designer.cs">
       <DependentUpon>201910091319239_ChangeName.cs</DependentUpon>
     </Compile>
+
     <Compile Include="Migrations\201910120620257_AddCustomerModel.cs" />
     <Compile Include="Migrations\201910120620257_AddCustomerModel.Designer.cs">
       <DependentUpon>201910120620257_AddCustomerModel.cs</DependentUpon>
@@ -304,6 +305,11 @@
     <Compile Include="Migrations\201910120621302_PopulateCustomer.cs" />
     <Compile Include="Migrations\201910120621302_PopulateCustomer.Designer.cs">
       <DependentUpon>201910120621302_PopulateCustomer.cs</DependentUpon>
+
+    <Compile Include="Migrations\201910121540403_updateAndAddOrder.cs" />
+    <Compile Include="Migrations\201910121540403_updateAndAddOrder.Designer.cs">
+      <DependentUpon>201910121540403_updateAndAddOrder.cs</DependentUpon>
+
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
@@ -2377,11 +2383,15 @@
     <EmbeddedResource Include="Migrations\201910091319239_ChangeName.resx">
       <DependentUpon>201910091319239_ChangeName.cs</DependentUpon>
     </EmbeddedResource>
+
     <EmbeddedResource Include="Migrations\201910120620257_AddCustomerModel.resx">
       <DependentUpon>201910120620257_AddCustomerModel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910120621302_PopulateCustomer.resx">
       <DependentUpon>201910120621302_PopulateCustomer.cs</DependentUpon>
+
+    <EmbeddedResource Include="Migrations\201910121540403_updateAndAddOrder.resx">
+      <DependentUpon>201910121540403_updateAndAddOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
