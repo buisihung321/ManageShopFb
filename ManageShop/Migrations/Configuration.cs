@@ -1,4 +1,3 @@
-
 namespace ManageShop.Migrations
 {
     using System;

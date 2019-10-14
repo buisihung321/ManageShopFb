@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ManageShop.DAL
 {
@@ -16,7 +17,7 @@ namespace ManageShop.DAL
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
 
-
+        public DbSet<Customer> Customers { get; set; }
 
     }
 }

@@ -41,8 +41,9 @@ function RenderProduct(products) {
             //tim xem co hay chua
             let product = productsDetail.find(`#${productID}`);
             console.log(product);
-            if (product.length!=0) {
+            if (product.length != 0) {
                 //Cap nhat quantity
+
                 var newQuantity = parseInt(product.find("#quantityToSave").val()) + parseInt(quantity);
                 if (newQuantity > quantityToCheck) {
                     isValid = false;
@@ -99,13 +100,12 @@ function RenderProduct(products) {
                 }
 
             }
-                 
         });
         //productname, quantity, price
         //luu xuong albumid, productid
     }
     function removeOrder(btn, productID) {
-        btn.click(()=> {
+        btn.click(() => {
             let productsDetail = $("#orderdetailsItems");
             let product = productsDetail.find(`#${productID}`);
             console.log("Remove");
@@ -134,7 +134,7 @@ function RenderProduct(products) {
                     
                 </div>
                 <div class="card-footer text-right">
-                    <input id="add" type="button" value="add" class="btn btn-success" style="width:80px" />
+                    <button id="add" class="btn btn-success btn-sm" >Add</button>
                 </div>
             </div>`;
         $('#product-container').append(product);
@@ -217,10 +217,12 @@ $("#submit").click(function () {
         datatype: 'json',
         data: data,
         success: function (res) {
-
+            bootbox.alert("Save successful", function() {
+                window.location.href = res.newUrl;
+            });
         },
         err: function () {
-            console.log("Error when calling ajax")
+            bootbox.alert("Error when calling ajax")
         }
     })
 })
