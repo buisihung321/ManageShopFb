@@ -290,6 +290,10 @@
     <Compile Include="Migrations\201910091319239_ChangeName.Designer.cs">
       <DependentUpon>201910091319239_ChangeName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910121540403_updateAndAddOrder.cs" />
+    <Compile Include="Migrations\201910121540403_updateAndAddOrder.Designer.cs">
+      <DependentUpon>201910121540403_updateAndAddOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Category.cs" />
@@ -719,6 +723,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910091319239_ChangeName.resx">
       <DependentUpon>201910091319239_ChangeName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910121540403_updateAndAddOrder.resx">
+      <DependentUpon>201910121540403_updateAndAddOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
