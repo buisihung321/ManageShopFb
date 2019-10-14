@@ -47,17 +47,17 @@ function RenderProduct(products) {
                 var newQuantity = parseInt(product.find("#quantityToSave").val()) + parseInt(quantity);
                 if (newQuantity > quantityToCheck) {
                     isValid = false;
-                    productWrapper.find("#outOfStock").css("visibility", "visible");
+                    productWrapper.find("#outOfStock").css("display","block");
                 } else {
 
-                    productWrapper.find("#outOfStock").css("visibility", "hidden");
+                    productWrapper.find("#outOfStock").css("display","none");
                 }
 
-                if (quantity == '0' || quantity.length<1) {
+                if (quantity.length<1 || parseInt(quantity) <= 0 ) {
                     isValid = false;
-                    productWrapper.find("#errorQuantity").css("visibility", "visible");
+                    productWrapper.find("#errorQuantity").css("display","block");
                 } else {
-                    productWrapper.find("#errorQuantity").css("visibility", "hidden");
+                    productWrapper.find("#errorQuantity").css("display","none");
                 }
                 if (isValid) {
                     
@@ -71,31 +71,47 @@ function RenderProduct(products) {
               
                 if (quantity > quantityToCheck) {
                     isValid = false;
-                    productWrapper.find("#outOfStock").css("visibility", "visible");
+                    productWrapper.find("#outOfStock").css("display","block");
                 } else {
 
-                    productWrapper.find("#outOfStock").css("visibility", "hidden");
+                    productWrapper.find("#outOfStock").css("display","none");
                 }
 
-                if (quantity == '0' || quantity.length < 1) {
+                if (parseInt(quantity) <= 0  || quantity.length < 1) {
                     isValid = false;
-                    productWrapper.find("#errorQuantity").css("visibility", "visible");
+                    productWrapper.find("#errorQuantity").css("display","block");
                 } else {
-                    productWrapper.find("#errorQuantity").css("visibility", "hidden");
+                    productWrapper.find("#errorQuantity").css("display","none");
                 }
+
+
+
                 if (isValid) {
                     var productName = productWrapper.find("#productName").text();
                     var amount = price * quantity;
                     var newRow = `<tr class='valueOrder' id='${productID}'>
-                <td> <input type='text' id='productToSave' class='form-control' value="${productName}" name='ProductId' disabled/>
-                <input type="hidden" name="OrderDetail.ProductId" value="${productID}" />
+                <td>
+                    <div class="text-truncate" >
+                                    <p class="font-italic product-title text-truncate" style="max-width: 65px;">${productName}</p>
+                                    <input type='hidden' id='productToSave' class='form-control' value="${productName}" name='OrderDetail.ProductName' />
+                                    <input type="hidden" name="OrderDetail.ProductId" value="${productID}" />
+                                </div>
                 </td>               
-                <td><input type='text' id='quantityToSave' class='form-control' value="${quantity}" name='OrderDetail.Quantity' disabled/></td>
-                <td><input type='text' id='priceToSave' class='form-control' value="${price} " name='OrderDetail.UnitPrice' disabled/></td>
-                <td><input type='text' id='amountToSave' class='form-control' value="${amount} " name='OrderDetail.Amount' disabled/></td>
-                <td><input type='button' class='btn btn-danger remove' value='Remove' /></td></tr > `;
+                <td>
+                                        <input type='text' id='quantityToSave' class='' value="${quantity}" name='OrderDetail.Quantity' disabled/>
+                </td>
+                <td>
+                                        <input type='text' id='priceToSave' class='' value="${price} " name='OrderDetail.UnitPrice' disabled/>
+                </td>
+                <td>
+                                        <input type='text' id='amountToSave' class='' value="${amount} " name='OrderDetail.Amount' disabled/>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-sm remove"><i class="far fa-trash-alt"></i></button>
+                </td>
+                </tr >`;
                     $("#orderdetailsItems").append(newRow);
-                    removeOrder($(`#orderdetailsItems tr#${productID} input.remove`), productID);
+                    removeOrder($(`#orderdetailsItems tr#${productID} button.remove`), productID);
                     orderDetailsInput.text(parseInt(orderDetailsInput.text()) + parseInt(quantity * price));    
                 }
 
@@ -127,9 +143,9 @@ function RenderProduct(products) {
                             Price: <span id="price">${products[i].Price}</span>
                                    <span id="checkQuantity" hidden>${products[i].Quantity}</span>                             
                         </p>
-                            <input type="text" class="form-control" id="quantity"/>
-                            <span id="errorQuantity" style="color:red; visibility:hidden">Please enter quantity again</span>
-                            <span id="outOfStock" style="color:red; visibility:hidden">Quantity is not enought. Please enter again!!!</span>
+                            <input type="number" placeholder="${products[i].Quantity} items is available" class="form-control" id="quantity"/>
+                            <span id="errorQuantity" style="color:red; display:none">Please enter quantity again</span>
+                            <span id="outOfStock" style="color:red; display:none">Quantity is not enought. Please enter again!!!</span>
                     </div>
                     
                 </div>
@@ -151,37 +167,37 @@ function getInputForAddAlbum() {
 
     if (order.OrderDate.length < 10) {
         isValid = false;
-        $("#errorDate").css("visibility", "visible");
+        $("#errorDate").css("display","block");
     } else {
-        $("#errorDate").css("visibility", "hidden");
+        $("#errorDate").css("display","none");
     }
 
 
     order.Phone = $('#orderPhone').val();
-    var phoneNumber = new RegExp('/[0-9-()+]{10}/');
+    var phoneNumber =/[0-9-()+]{10}/;
 
-    if (phoneNumber.test(order.Phone) || order.Phone.length<1) {
+    if (!phoneNumber.test(order.Phone) || order.Phone.length<1) {
         isValid = false;
-        $("#errorPhone").css("visibility", "visible");
+        $("#errorPhone").css("display","block");
     } else {
-        $("#errorPhone").css("visibility","hidden");
+        $("#errorPhone").css("display","none");
     }
 
     order.Name = $('#orderName').val();
 
     if (order.Name.length < 3) {
         isValid = false;
-        $("#errorName").css("visibility", "visible");
+        $("#errorName").css("display","block");
     } else {
-        $("#errorName").css("visibility", "hidden");
+        $("#errorName").css("display","none");
     }
     order.Address = $('#orderAddress').val();
 
     if (order.Address.length < 4) {
         isValid = false;
-        $("#errorAddress").css("visibility", "visible");
+        $("#errorAddress").css("display","block");
     } else {
-        $("#errorAddress").css("visibility", "hidden");
+        $("#errorAddress").css("display","none");
     }
     order.Description = $('#orderDes').val();
     order.Total = parseInt($('#totalAmount').text());
@@ -190,6 +206,7 @@ function getInputForAddAlbum() {
         orderValue.each((index, ele) => {
             let orderDetail = {};
             orderDetail.ProductId = $(ele).find("input[name='OrderDetail.ProductId']").val();
+            orderDetail.ProductName = $(ele).find("input[name='OrderDetail.ProductName']").val();
             orderDetail.Quantity = $(ele).find("input[name='OrderDetail.Quantity']").val();
             orderDetail.UnitPrice = $(ele).find("input[name='OrderDetail.UnitPrice']").val();
             orderDetail.Amount = $(ele).find("input[name='OrderDetail.Amount']").val();
