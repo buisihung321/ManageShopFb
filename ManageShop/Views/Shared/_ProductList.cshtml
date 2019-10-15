@@ -16,7 +16,9 @@
             <div class="card-body">
                 @*SHOW INFO DIV*@
                 <div id="info-container">
-                    <h5 class="card-title">@product.Name</h5>
+                    <h5 class="card-title text-truncate" 
+                        data-toggle="tooltip" title="@product.Name" data-placement="left"
+                        style="max-width: 100%;">@product.Name</h5>
                     <p class="card-text">
                         Price: $@product.Price
                     </p>

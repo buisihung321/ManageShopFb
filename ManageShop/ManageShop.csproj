@@ -2031,6 +2031,9 @@
     <Content Include="Content\Image\background.jpg" />
     <Content Include="Content\Image\backgroudn2.jpg" />
     <Content Include="Content\Image\not18.jpg" />
+    <Content Include="Content\Image\photo-1520617513539-7dddc453eb62.jpg" />
+    <Content Include="Content\Image\photo-1534723452862-4c874018d66d.jpg" />
+    <Content Include="Content\Image\photo-1548104144-32c5171cf929.jpg" />
     <Content Include="Content\Order\Index.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -2224,6 +2227,7 @@
     <None Include="Properties\PublishProfiles\hungdotnet.pubxml" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <None Include="Properties\PublishProfiles\ManageShopFb - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\obnoxiousseahorse-9796 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\obnoxiousseahorse-9796 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

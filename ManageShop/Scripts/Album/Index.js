@@ -48,7 +48,7 @@ function getInputForAddAlbum() {
     productsObj.each((index, ele) => {
         let product = {};
         product.AlbumId = album.AlbumId;
-        product.Name = $(ele).find(`input[name="Name"]`).val();
+        product.Name = $(ele).find(`textarea[name="Name"]`).val();
         product.Price = $(ele).find(`input[name="Price"]`).val();
         product.Quantity = $(ele).find(`input[name="Quantity"]`).val();
         product.PhotoUUID = $(ele).attr('id');
@@ -128,7 +128,7 @@ function installProgressBar(widget) {
                                          width="100%" height="180"
                                          alt="Alternate Text" />
                                     <div class="card-body">
-                                            <input type="text" name="Name" id="name" placeholder="Name" class="form-control form-control-sm" />
+                                            <textarea type="text" name="Name" id="name" rows="3" placeholder="Name" class="form-control form-control-sm" ></textarea>
                                             <input type="number" name="Price" id="price" placeholder="Price"  class="form-control form-control-sm" />
                                             <input type="number" name="Quantity" id="quantity" placeholder="Quantity"  class="form-control form-control-sm" />
                                     </div>

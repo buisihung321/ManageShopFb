@@ -39,7 +39,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="Name" id="name" class="form-control" />
+                        <textarea type="text" name="Name" rows="3" id="name" class="form-control" ></textarea>
                     </div>
                     <div class="form-group">
                         <label for="price">Price</label>
@@ -66,43 +66,6 @@
     </div>
 </div>
 
-@*<div id="edit_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit product</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form class="modal-body" action="/Product/Update" method="POST">
-                <img id="product-photo" src=""
-                     width="100%" height="180"
-                     alt="Alternate Text" />
-                <div id="edit-product-container">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" name="Name" id="name" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Price</label>
-                        <input type="number" name="Price" id="price" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="price">Quantity</label>
-                        <input type="number" name="Quantity" id="quantity" class="form-control" />
-                    </div>
-                    <input type="hidden" value="" name="AlbumId" />
-                    <input type="hidden" value="" name="PhotoUUID" />
-                    <button id="submit-edit__btn" class="btn btn-primary">Save</button>
-                </div>
-            </form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>*@
 
 @Html.Partial("_ProductList",Model.Products)
 

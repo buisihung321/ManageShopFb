@@ -92,7 +92,9 @@ function RenderProduct(products) {
                     var newRow = `<tr class='valueOrder' id='${productID}'>
                 <td>
                     <div class="text-truncate" >
-                                    <p class="font-italic product-title text-truncate" style="max-width: 65px;">${productName}</p>
+                                    <p class="font-italic product-title text-truncate"
+                                        data-toggle="tooltip" title="${productName}" data-placement="left"    
+                                        style="max-width: 65px;">${productName}</p>
                                     <input type='hidden' id='productToSave' class='form-control' value="${productName}" name='OrderDetail.ProductName' />
                                     <input type="hidden" name="OrderDetail.ProductId" value="${productID}" />
                                 </div>
@@ -138,7 +140,10 @@ function RenderProduct(products) {
                      alt="Alternate Text" />
                 <div class="card-body">
                     <div id="info-container">
-                        <h5 class="card-title" id="productName">${products[i].Name}</h5>
+                        <h5 class="card-title text-truncate" id="productName"
+                                style="max-width: 100%;"    
+                                data-toggle="tooltip" title="${products[i].Name}" data-placement="left"
+                            >${products[i].Name}</h5>
                         <p class="card-text">
                             Price: <span id="price">${products[i].Price}</span>
                                    <span id="checkQuantity" hidden>${products[i].Quantity}</span>                             

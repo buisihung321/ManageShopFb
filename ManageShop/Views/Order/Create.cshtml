@@ -1,6 +1,6 @@
 ﻿@model ManageShop.Models.ViewModel.OrderViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Create Order";
 }
 @section Styles {
     <link href="@Url.Content("~/Content/Order/Index.css")" rel="stylesheet" type="text/css" />
@@ -53,7 +53,7 @@
 
             <div class="form-group">
                 <label for="inputAddress">Description</label>
-                <input type="text" class="form-control" id="orderDes" placeholder="Your text here...">
+                <textarea type="text" class="form-control" rows="5" id="orderDes" placeholder="Your text here..."></textarea>
             </div>
         </form>
             <table class="table table-hover product-table">
