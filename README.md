@@ -33,12 +33,15 @@ Add additional notes about how to deploy this on a live system
 * [SQL Server] - Database
 * [Entity Framework with codefirst method]() - Connect to SQL Server
 * [Azure Service]() - Deploy and host web apps (App service), putting database on cloud 
+* [Grpah API](https://developers.facebook.com/docs/javascript/reference/FB.api/) - For posting customer's products on their FB account
+* [Messenger Platform](https://developers.facebook.com/docs/messenger-platform/) - Reciving, process and reply customer message on FB automatically
+* [Wit.ai](https://wit.ai/) - For process the message ,understand what users say by extracting relevant information for our server to reply them base on that context
 
 
 ## Authors
 
 * **Hung Bui** - *Initial work* 
 
-
+* **Nguyen Huu Linh** - *Partner*
 
 
