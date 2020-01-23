@@ -31,9 +31,25 @@ namespace ManageShop.Controllers
             };
             return View("Create", viewModel);
         }
-
+        //Save
        public ActionResult Save(IEnumerable<OrderDetail> orderDetails,Order order)
        {
+            //update product quantity
+            foreach (var orderDetail in orderDetails)
+            {
+                var prod = _context.Products.SingleOrDefault(p => p.Id == orderDetail.ProductId);
+                if(prod != null)
+                {
+                    if (prod.Quantity - orderDetail.Quantity < 0)
+                        return Content("Khong du quantity");
+                    prod.Quantity -= orderDetail.Quantity;
+                }
+                else
+                {
+                    //Thong bao khong tim thay product
+                }
+            }
+
             foreach(OrderDetail orderDetail in orderDetails)
             {
                 order.OrderDetails.Add(orderDetail);

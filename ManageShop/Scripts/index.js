@@ -1,5 +1,5 @@
 ﻿$("body").on('click', 'a.delete-link', deleteLink);
-
+$('[data-toggle="tooltip"]').tooltip();
 var updateModal;
 function deleteLink(e) {
     let href = $(this).attr('href');
@@ -166,3 +166,26 @@ function createUpdateModal(data) {
 }
 
 
+
+//set random image for header 
+
+const unsplashKey = "1b94951cfab3a250714e5e460a5993fae101a1dffad7ce4e328a53287b8724d4";
+const keyword = ["shopping", "supermarket","accessory"];
+
+var item = keyword[Math.floor(Math.random() * keyword.length)];
+$.ajax({
+    url: `https://api.unsplash.com/search/photos?page=1&query=${item}&client_id=${unsplashKey}`,
+    type: 'GET',
+    success: function (res) {
+        console.log("Headeer images");
+        console.log(res);
+
+        let random = Math.floor((Math.random() * res.results.length));
+
+        let imageUrl = res.results[random].urls.full;
+        $('.header_container').css('background-image', 'url("' + imageUrl + '")');
+    },
+    err: function () {
+        console.log("Error when calling ajax")
+    }
+});

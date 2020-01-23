@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Order List";
 }
 
 <div class="page-header mb-2">
@@ -10,12 +10,13 @@
 
 <table id="orders" class="table table-bordered table-hover">
     <thead>
-    <tr>
-        <th>Order Id</th>
-        <th>Order Date</th>
-        <th>Description</th>
-        <th>Total</th>
-    </tr>
+        <tr>
+            <th>Order Id</th>
+            <th>Order Date</th>
+            <th>Customer Name</th>
+            <th>Description</th>
+            <th>Total</th>
+        </tr>
     </thead>
     <tbody>
     </tbody>
@@ -45,15 +46,33 @@
                     {
                         "data": "OrderId",
                         render: function (data, type, orderDetails) {
-                            return "<a href='/ViewOrder/Details/" + orderDetails.OrderId + "'>" + orderDetails.OrderId + "</a>";
+                            return "<a href='/ViewOrder/Details/" +
+                                orderDetails.OrderId +
+                                "'>" +
+                                orderDetails.OrderId +
+                                "</a>";
                         }
                     },
                     {
                         "data": "OrderDate",
-
+                        type: 'date',
+                        "render": function (value) {
+                            if (value === null) return "";
+                            var pattern = /Date\(([^)]+)\)/;
+                            var results = pattern.exec(value);
+                            var dt = new Date(parseFloat(results[1]));
+                            return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+                        }
                     },
-                    { "data": "Description" },
-                    { "data": "Total" },
+                    {
+                        "data": "Name"
+                    },
+                    {
+                        "data": "Description"
+                    },
+                    {
+                         "data": "Total"
+                    }
                 ]
             });
         });

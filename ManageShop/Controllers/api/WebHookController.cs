@@ -128,7 +128,7 @@ namespace ManageShop.Controllers.api
                             if (product == null)
                                 responseMsg = "Not found product";
                             else
-                                responseMsg = $"Product {product.Id} has price {product.Price}";
+                                responseMsg = $"Product {product.Id} has price {product.Price} thousand-dong";
                             //responseMsg = $"You ask price of product {productId}";
                         }
                         else

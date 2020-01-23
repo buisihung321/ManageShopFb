@@ -8,7 +8,7 @@
 <table id="orderDetails" class="table table-hover table-bordered">
     <thead>
         <tr>
-            <th>Id</th>
+            <th>Quantity Name</th>
             <th>Quantity</th>
             <th>Unit Price</th>
             <th>Order Id</th>
@@ -19,7 +19,7 @@
         @foreach(var od in Model)
         {
         <tr>
-            <td>@od.Id</td>
+            <td><a href="http://localhost:51382/Product/SearchPaging?searchBy=id&searchValue=@od.ProductId">@od.ProductName</a></td>
             <td>@od.Quantity</td>
             <td>@od.UnitPrice</td>
             <td>@od.OrderId</td>

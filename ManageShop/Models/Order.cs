@@ -13,6 +13,9 @@ namespace ManageShop.Models
         }
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
         public string Description { get; set; }
         public float Total { get; set; }
 

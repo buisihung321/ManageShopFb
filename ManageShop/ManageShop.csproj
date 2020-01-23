@@ -19,11 +19,10 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>44378</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -180,7 +179,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Controllers\WebhookController.cs" />
     <Compile Include="Controllers\ViewOrderController.cs" />
     <Compile Include="DAL\ManageShopContext.cs" />
     <Compile Include="DTO\AlbumDTO.cs" />
@@ -306,6 +304,18 @@
     <Compile Include="Migrations\201910120621302_PopulateCustomer.cs" />
     <Compile Include="Migrations\201910120621302_PopulateCustomer.Designer.cs">
       <DependentUpon>201910120621302_PopulateCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910121540403_updateAndAddOrder.cs" />
+    <Compile Include="Migrations\201910121540403_updateAndAddOrder.Designer.cs">
+      <DependentUpon>201910121540403_updateAndAddOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910140923456_Merge1410.cs" />
+    <Compile Include="Migrations\201910140923456_Merge1410.Designer.cs">
+      <DependentUpon>201910140923456_Merge1410.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910141056542_addNameOnOrderDetails.cs" />
+    <Compile Include="Migrations\201910141056542_addNameOnOrderDetails.Designer.cs">
+      <DependentUpon>201910141056542_addNameOnOrderDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Album.cs" />
@@ -2021,6 +2031,9 @@
     <Content Include="Content\Image\background.jpg" />
     <Content Include="Content\Image\backgroudn2.jpg" />
     <Content Include="Content\Image\not18.jpg" />
+    <Content Include="Content\Image\photo-1520617513539-7dddc453eb62.jpg" />
+    <Content Include="Content\Image\photo-1534723452862-4c874018d66d.jpg" />
+    <Content Include="Content\Image\photo-1548104144-32c5171cf929.jpg" />
     <Content Include="Content\Order\Index.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -2069,6 +2082,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Album\Index.js" />
     <Content Include="Scripts\Album\Edit.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -2214,6 +2228,7 @@
     <None Include="Properties\PublishProfiles\hungdotnet.pubxml" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <None Include="Properties\PublishProfiles\ManageShopFb - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\obnoxiousseahorse-9796 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\obnoxiousseahorse-9796 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -2384,6 +2399,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910120621302_PopulateCustomer.resx">
       <DependentUpon>201910120621302_PopulateCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910121540403_updateAndAddOrder.resx">
+      <DependentUpon>201910121540403_updateAndAddOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910140923456_Merge1410.resx">
+      <DependentUpon>201910140923456_Merge1410.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910141056542_addNameOnOrderDetails.resx">
+      <DependentUpon>201910141056542_addNameOnOrderDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

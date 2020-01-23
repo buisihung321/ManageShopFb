@@ -100,10 +100,17 @@ namespace ManageShop.Controllers
             }
             else if(searchBy == "id")
             {
+                int prodId = int.Parse(searchValue);
 
-            }else if (searchBy == "Name")
+                var products = _context.Products.Where(prod => prod.Id == prodId).ToList()
+                    .ToPagedList(page ?? 1, 3);
+                return View("SearchPaging", products);
+            }
+            else if (searchBy == "Name")
             {
-
+                var products = _context.Products.Where(prod => prod.Name.Contains(searchValue)).ToList()
+                    .ToPagedList(page ?? 1, 3);
+                return View("SearchPaging", products);
             }
             else
             {

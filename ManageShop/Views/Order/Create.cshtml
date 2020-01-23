@@ -1,6 +1,6 @@
 ﻿@model ManageShop.Models.ViewModel.OrderViewModel
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Create Order";
 }
 @section Styles {
     <link href="@Url.Content("~/Content/Order/Index.css")" rel="stylesheet" type="text/css" />
@@ -9,6 +9,7 @@
 <div class="container-fluid">
 
     <h2>Order</h2>
+    @*Test commit*@
     <div class="row">
         <div class="col-lg-8 col-12 mb-3" id="order">
             <div class="container d-flex">
@@ -23,38 +24,38 @@
         </div>
         <div class="col-lg-4 col-12" id="orderDetails">
             <h2>Order Details</h2>
-            <table class="table table-responsive">
-                <tr>
-                    <td>Customer Name</td>
-                    <td><input type="text" name="CustName" /></td>
-                </tr>
-                <tr>
-                    <td>Ship Address</td>
-                    <td><input type="text" name="CustAddress" /></td>
-                </tr>
-                <tr>
-                    <td>Phone</td>
-                    <td><input type="text" name="CustPhone" /></td>
-                </tr>
-                <tr>
-                    <td>Order Date</td>
-                    <td>
-                        <input type="text" id="orderDate" class="form-control" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td colspan="3">
-                        <textarea type="text" id="orderDes" class="form-control"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Phone</td>
-                    <td colspan="3">
-                        <textarea type="text" id="orderDes" class="form-control"></textarea>
-                    </td>
-                </tr>
-            </table>
+
+        <form class="p-2">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Order Date</label>
+                    <input type="text" class="form-control" id="orderDate" placeholder="Date...">
+                    <span id="errorDate" style="color:red; display:none">Please enter the date</span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Phone</label>
+                    <input type="text" class="form-control" id="orderPhone" placeholder="Phone...">
+                    <span id="errorPhone" style="color:red; display:none">Please enter your phone</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputAddress2">Name</label>
+                <input type="text" class="form-control" id="orderName" placeholder="Nguyen Huu Linh">
+                <span id="errorName" style="color:red; display:none">Please enter your name</span>
+            </div>
+
+            <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" class="form-control" id="orderAddress" placeholder="1234 Main St">
+                <span id="errorAddress" style="color:red; display:none">Please enter your address</span>
+            </div>
+
+            <div class="form-group">
+                <label for="inputAddress">Description</label>
+                <textarea type="text" class="form-control" rows="5" id="orderDes" placeholder="Your text here..."></textarea>
+            </div>
+        </form>
             <table class="table table-hover product-table">
                 <thead>
                     <tr>
@@ -69,8 +70,8 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4" class="text-right">Total: </td>
-                        <td><span id="totalAmount" class="badge badge-info">0</span>
+                        <td colspan="3" class="text-right">Total: </td>
+                        <td colspan="2"><span id="totalAmount" class="badge badge-info">0</span>
                             <span class="font-weight-bold currency" >đ</span>
                             </td>
                     </tr>
